@@ -9,11 +9,11 @@ namespace NoteMode.HarmonyPatches
         {
             if (NoteModeController.instance?.inGame == true)
             {
-                if (Config.oneColorRed && type == SaberType.SaberB)
+                if ((Config.noBlue || Config.oneColorRed) && type == SaberType.SaberB)
                 {
                     type = SaberType.SaberA;
                 }
-                else if (Config.oneColorBlue && type == SaberType.SaberA)
+                else if ((Config.noRed || Config.oneColorBlue) && type == SaberType.SaberA)
                 {
                     type = SaberType.SaberB;
                 }
@@ -27,11 +27,11 @@ namespace NoteMode.HarmonyPatches
             {
                 if (NoteModeController.instance?.inGame == true)
                 {
-                    if (Config.oneColorRed && type == SaberType.SaberB)
+                    if ((Config.noBlue || Config.oneColorRed) && type == SaberType.SaberB)
                     {
                         type = SaberType.SaberA;
                     }
-                    else if (Config.oneColorBlue && type == SaberType.SaberA)
+                    else if ((Config.noRed || Config.oneColorBlue) && type == SaberType.SaberA)
                     {
                         type = SaberType.SaberB;
                     }

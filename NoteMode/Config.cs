@@ -9,6 +9,10 @@ namespace NoteMode
     {
         private static BS_Utils.Utilities.Config _config = new BS_Utils.Utilities.Config(Plugin.Name);
 
+        public static bool flagNoRedBlue = false;
+        public static bool flagNoRed = false;
+        public static bool noRed = false;
+        public static bool noBlue = false;
         public static bool oneColorRed = false;
         public static bool oneColorBlue = false;
         public static bool noArrow = false;
@@ -36,6 +40,34 @@ namespace NoteMode
             if (!_ignoreConfigChanged)
             {
                 Config.Read();
+                if (!flagNoRedBlue && (noRed || noBlue))
+                {
+                    if (oneColorRed || oneColorBlue)
+                    {
+                        flagNoRedBlue = true;
+                        noRed = false;
+                        noBlue = false;
+                    }
+                    if (!flagNoRed && noRed)
+                    {
+                        flagNoRed = true;
+                        noBlue = false;
+                    }
+                    else if (flagNoRed && noBlue)
+                    {
+                        flagNoRed = false;
+                        noRed = false;
+                    }
+                }
+                else if (flagNoRedBlue && (oneColorRed || oneColorBlue))
+                {
+                    if (noRed || noBlue)
+                    {
+                        flagNoRedBlue = false;
+                        oneColorRed = false;
+                        oneColorBlue = false;
+                    }
+                }
                 ModifierUI.instance.updateUI();
             }
         }
@@ -47,8 +79,9 @@ namespace NoteMode
                 Init();
             }
 
+            noRed = _config.GetBool(Plugin.Name, "noRed", false, true);
+            noBlue = _config.GetBool(Plugin.Name, "noBlue", false, true);
             oneColorRed = _config.GetBool(Plugin.Name, "oneColorRed", false, true);
-            Logger.log.Debug($"NoteMode: {oneColorRed}");
             oneColorBlue = _config.GetBool(Plugin.Name, "oneColorBlue", false, true);
             noArrow = _config.GetBool(Plugin.Name, "noArrow", false, true);
             noteSize = _config.GetFloat(Plugin.Name, "noteSize", 1f, true);
@@ -57,6 +90,9 @@ namespace NoteMode
         public static void Write()
         {
             PersistentSingleton<SharedCoroutineStarter>.instance.StartCoroutine(DisableWatcherTemporaryCoroutine());
+
+            _config.SetBool(Plugin.Name, "noRed", noRed);
+            _config.SetBool(Plugin.Name, "noBlue", noBlue);
             _config.SetBool(Plugin.Name, "oneColorRed", oneColorRed);
             _config.SetBool(Plugin.Name, "oneColorBlue", oneColorBlue);
             _config.SetBool(Plugin.Name, "noArrow", noArrow);
@@ -66,7 +102,7 @@ namespace NoteMode
         private static IEnumerator DisableWatcherTemporaryCoroutine()
         {
             _ignoreConfigChanged = true;
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.01f);
             _ignoreConfigChanged = false;
         }
     }

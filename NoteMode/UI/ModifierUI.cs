@@ -15,6 +15,28 @@ namespace NoteMode
             parserParams.EmitEvent("cancel");
         }
 
+        [UIValue("noRed")]
+        public bool noRed
+        {
+            get => Config.noRed;
+            set
+            {
+                Config.noRed = value;
+                Config.Write();
+            }
+        }
+
+        [UIValue("noBlue")]
+        public bool noBlue
+        {
+            get => Config.noBlue;
+            set
+            {
+                Config.noBlue = value;
+                Config.Write();
+            }
+        }
+
         [UIValue("oneColorRed")]
         public bool oneColorRed
         {

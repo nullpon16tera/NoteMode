@@ -19,6 +19,15 @@ namespace NoteMode.HarmonyPatches
                 property.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
             }
 
+            if ((noteData.colorType == ColorType.ColorA) && Config.noRed)
+            {
+                return false;
+            }
+            else if ((noteData.colorType == ColorType.ColorB) && Config.noBlue)
+            {
+                return false;
+            }
+
             return true;
         }
     }

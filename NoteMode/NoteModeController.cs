@@ -63,6 +63,8 @@ namespace NoteMode
                 Logger.log.Debug($"Mode: {BS_Utils.Plugin.LevelData.Mode}");
                 if (BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Standard)
                 {
+                    Config.noRed = false;
+                    Config.noBlue = false;
                     Config.oneColorRed = false;
                     Config.oneColorBlue = false;
                     Config.noArrow = false;
@@ -74,7 +76,7 @@ namespace NoteMode
 
                 Config.Read();
 
-                if (Config.oneColorRed || Config.oneColorBlue || Config.noArrow)
+                if (Config.noRed || Config.noBlue || Config.oneColorRed || Config.oneColorBlue || Config.noArrow)
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);
                 }
@@ -119,7 +121,7 @@ namespace NoteMode
                 _noteCutter = cuttingManager.GetPrivateField<NoteCutter>("_noteCutter");
             }
 
-            if (Config.noArrow || Config.oneColorRed || Config.oneColorBlue)
+            if (Config.noArrow || Config.oneColorRed || Config.oneColorBlue || Config.noRed || Config.noBlue)
             {
                 _beatmapObjectManager = _pauseController.GetPrivateField<BeatmapObjectManager>("_beatmapObjectManager");
                 _beatmapObjectManager.noteWasSpawnedEvent -= OnNoteWasSpawned;

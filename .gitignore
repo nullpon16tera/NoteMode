@@ -9,3 +9,5 @@
 .vs/
 NodeMode/bin/
 NodeMode/obj/
+/NoteMode/bin
+/NoteMode/obj

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using NoteMode.Configuration;
 
 namespace NoteMode.HarmonyPatches
 {
@@ -9,11 +10,11 @@ namespace NoteMode.HarmonyPatches
         {
             if (NoteModeController.instance?.inGame == true)
             {
-                if ((Config.noBlue || Config.oneColorRed) && type == SaberType.SaberB)
+                if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
                 {
                     type = SaberType.SaberA;
                 }
-                else if ((Config.noRed || Config.oneColorBlue) && type == SaberType.SaberA)
+                else if ((PluginConfig.Instance.noRed || PluginConfig.Instance.oneColorBlue) && type == SaberType.SaberA)
                 {
                     type = SaberType.SaberB;
                 }
@@ -27,11 +28,11 @@ namespace NoteMode.HarmonyPatches
             {
                 if (NoteModeController.instance?.inGame == true)
                 {
-                    if ((Config.noBlue || Config.oneColorRed) && type == SaberType.SaberB)
+                    if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
                     {
                         type = SaberType.SaberA;
                     }
-                    else if ((Config.noRed || Config.oneColorBlue) && type == SaberType.SaberA)
+                    else if ((PluginConfig.Instance.noRed || PluginConfig.Instance.oneColorBlue) && type == SaberType.SaberA)
                     {
                         type = SaberType.SaberB;
                     }

@@ -1,4 +1,5 @@
 ﻿using BS_Utils.Gameplay;
+using NoteMode.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,42 +42,35 @@ namespace NoteMode
 
         private void OnEnable()
         {
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
 
         private void OnDisable()
         {
-            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
 
-        public void OnActiveSceneChanged(Scene oldScene, Scene newScene)
+        private void Start()
         {
-            Logger.log.Debug($"OnActiveSceneChanged: {newScene.name}");
+            Logger.log.Debug($"{name}: Start()");
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        }
 
+        public void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
+        {
             _init = false;
             inGame = false;
 
-            if (newScene.name == "GameCore")
+            if (nextScene.name == "GameCore")
             {
                 inGame = true;
+                Logger.log.Debug("GameCore Scene Started");
 
-                Logger.log.Debug($"Mode: {BS_Utils.Plugin.LevelData.Mode}");
-                if (BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Standard)
-                {
-                    Config.noRed = false;
-                    Config.noBlue = false;
-                    Config.oneColorRed = false;
-                    Config.oneColorBlue = false;
-                    Config.noArrow = false;
-
-                    ModifierUI.instance.updateUI();
-
-                    return;
-                }
-
-                Config.Read();
-
-                if (Config.noRed || Config.noBlue || Config.oneColorRed || Config.oneColorBlue || Config.noArrow)
+                if (
+                    PluginConfig.Instance.noRed ||
+                    PluginConfig.Instance.noBlue ||
+                    PluginConfig.Instance.oneColorRed ||
+                    PluginConfig.Instance.oneColorBlue ||
+                    PluginConfig.Instance.noArrow
+                )
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);
                 }
@@ -85,19 +79,6 @@ namespace NoteMode
             }
         }
 
-
-        private GameObject FindChildren(GameObject parent, string name, bool includeInactive = false)
-        {
-            var children = parent.GetComponentsInChildren<Transform>(includeInactive);
-            foreach (var transform in children)
-            {
-                if (transform.name == name)
-                {
-                    return transform.gameObject;
-                }
-            }
-            return null;
-        }
 
         private IEnumerator OnGameCoreCoroutine()
         {
@@ -121,7 +102,13 @@ namespace NoteMode
                 _noteCutter = cuttingManager.GetPrivateField<NoteCutter>("_noteCutter");
             }
 
-            if (Config.noArrow || Config.oneColorRed || Config.oneColorBlue || Config.noRed || Config.noBlue)
+            if (
+                PluginConfig.Instance.noArrow ||
+                PluginConfig.Instance.oneColorRed ||
+                PluginConfig.Instance.oneColorBlue ||
+                PluginConfig.Instance.noRed ||
+                PluginConfig.Instance.noBlue
+            )
             {
                 _beatmapObjectManager = _pauseController.GetPrivateField<BeatmapObjectManager>("_beatmapObjectManager");
                 _beatmapObjectManager.noteWasSpawnedEvent -= OnNoteWasSpawned;
@@ -160,19 +147,7 @@ namespace NoteMode
             }
         }
 
-        private void Start()
-        {
-            Logger.log?.Debug($"{name}: Start()");
-        }
-
-        private void UpdateAdditionalSaber(Saber saber)
-        {
-            saber.ManualUpdate();
-            if (_noteCutter != null)
-            {
-                _noteCutter.Cut(saber);
-            }
-        }
+        
 
         private void Update()
         {
@@ -185,7 +160,11 @@ namespace NoteMode
         private void OnDestroy()
         {
             Logger.log?.Debug($"{name}: OnDestroy()");
-            instance = null;
+            if (instance == this)
+            {
+                instance = null;
+            }
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
         #endregion
     }

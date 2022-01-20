@@ -4,6 +4,6 @@ namespace NoteMode
 {
     internal static class Logger
     {
-        internal static IPALogger log { get; set; }
+        internal static IPALogger log => Plugin.Log;
     }
 }

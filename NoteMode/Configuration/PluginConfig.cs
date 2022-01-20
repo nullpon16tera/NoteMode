@@ -9,8 +9,6 @@ namespace NoteMode.Configuration
     internal class PluginConfig
     {
         public static PluginConfig Instance { get; set; }
-        public static bool flagNoRedBlue = false;
-        public static bool flagNoRed = false;
 
         public virtual bool noRed { get; set; } = false;
         public virtual bool noBlue { get; set; } = false;
@@ -35,34 +33,6 @@ namespace NoteMode.Configuration
         {
             ConfigChangedEvent?.Invoke(this);
             // Do stuff when the config is changed.
-            /*if (!flagNoRedBlue && (noRed || noBlue))
-            {
-                if (oneColorRed || oneColorBlue)
-                {
-                    flagNoRedBlue = true;
-                    noRed = false;
-                    noBlue = false;
-                }
-                if (!flagNoRed && noRed)
-                {
-                    flagNoRed = true;
-                    noBlue = false;
-                }
-                else if (flagNoRed && noBlue)
-                {
-                    flagNoRed = false;
-                    noRed = false;
-                }
-            }
-            else if (flagNoRedBlue && (oneColorRed || oneColorBlue))
-            {
-                if (noRed || noBlue)
-                {
-                    flagNoRedBlue = false;
-                    oneColorRed = false;
-                    oneColorBlue = false;
-                }
-            }*/
         }
 
         /// <summary>
@@ -83,7 +53,6 @@ namespace NoteMode.Configuration
                 {
                     continue;
                 }
-                Logger.log?.Debug($"NoteMode: {currentProp}");
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using BS_Utils.Gameplay;
-using BS_Utils.Utilities;
 using NoteMode.Configuration;
 using System;
 using System.Collections;
@@ -47,29 +46,22 @@ namespace NoteMode
 
         private void OnDisable()
         {
-            //SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
 
         private void Start()
         {
-            Logger.log?.Debug($"{name}: Start()");
+            Logger.log.Debug($"{name}: Start()");
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
 
         public void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
         {
-            Logger.log?.Debug($"{prevScene.name}->{nextScene.name}");
             _init = false;
             inGame = false;
 
             if (nextScene.name == "GameCore")
             {
                 inGame = true;
-
-                if (BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Standard)
-                {
-                    return;
-                }
                 Logger.log.Debug("GameCore Scene Started");
 
                 if (
@@ -169,7 +161,10 @@ namespace NoteMode
         {
             Logger.log?.Debug($"{name}: OnDestroy()");
             if (instance == this)
+            {
                 instance = null;
+            }
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
         #endregion
     }

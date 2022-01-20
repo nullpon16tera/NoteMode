@@ -1,4 +1,5 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
+using BeatSaberMarkupLanguage.Parser;
 using NoteMode.Configuration;
 
 
@@ -6,39 +7,106 @@ namespace NoteMode.UI
 {
     public class ModifierController : PersistentSingleton<ModifierController>
     {
+        [UIParams]
+        BSMLParserParams parserParams;
+
+        private static PluginConfig conf = PluginConfig.Instance;
+
+        public void updateUI()
+        {
+            parserParams.EmitEvent("cancel");
+        }
+
         [UIValue("noRed")]
         public bool noRed
         {
-            get => PluginConfig.Instance.noRed;
-            set => PluginConfig.Instance.noRed = value;
+            get => conf.noRed;
+            set
+            {
+                if (value)
+                {
+                    conf.noBlue = !value;
+                    if (conf.oneColorBlue || conf.oneColorRed)
+                    {
+                        conf.oneColorRed = false;
+                        conf.oneColorBlue = false;
+                    }
+                }
+                conf.noRed = value;
+                
+                updateUI();
+            }
         }
 
         [UIValue("noBlue")]
         public bool noBlue
         {
-            get => PluginConfig.Instance.noBlue;
-            set => PluginConfig.Instance.noBlue = value;
+            get => conf.noBlue;
+            set
+            {
+                if (value)
+                {
+                    conf.noRed = !value;
+                    if (conf.oneColorBlue || conf.oneColorRed)
+                    {
+                        conf.oneColorRed = false;
+                        conf.oneColorBlue = false;
+                    }
+                }
+                conf.noBlue = value;
+
+                updateUI();
+            }
         }
 
         [UIValue("oneColorRed")]
         public bool oneColorRed
         {
-            get => PluginConfig.Instance.oneColorRed;
-            set => PluginConfig.Instance.oneColorRed = value;
+            get => conf.oneColorRed;
+            set
+            {
+                if (value)
+                {
+                    conf.oneColorBlue = !value;
+                    if (conf.noRed || conf.noBlue)
+                    {
+                        conf.noRed = false;
+                        conf.noBlue = false;
+                    }
+                }
+                conf.oneColorRed = value;
+                updateUI();
+            }
         }
 
         [UIValue("oneColorBlue")]
         public bool oneColorBlue
         {
-            get => PluginConfig.Instance.oneColorBlue;
-            set => PluginConfig.Instance.oneColorBlue = value;
+            get => conf.oneColorBlue;
+            set
+            {
+                if (value)
+                {
+                    conf.oneColorRed = !value;
+                    if (conf.noRed || conf.noBlue)
+                    {
+                        conf.noRed = false;
+                        conf.noBlue = false;
+                    }
+                }
+                conf.oneColorBlue = value;
+                updateUI();
+            }
         }
 
         [UIValue("noArrow")]
         public bool noArrow
         {
-            get => PluginConfig.Instance.noArrow;
-            set => PluginConfig.Instance.noArrow = value;
+            get => conf.noArrow;
+            set
+            {
+                conf.noArrow = value;
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using BeatSaberMarkupLanguage.GameplaySetup;
-using BeatSaberMarkupLanguage.Settings;
 using HarmonyLib;
 using IPA;
 using IPA.Config;
@@ -24,8 +23,6 @@ namespace NoteMode
         internal static IPALogger Log { get; private set; }
 
         internal static string Name => "NoteMode";
-
-        internal static string TabName => "NoteMode";
 
         [Init]
         public void Init(IPALogger logger, Config conf)
@@ -52,9 +49,8 @@ namespace NoteMode
         [OnStart]
         public void OnApplicationStart()
         {
-            //NoteConfig.Read();
             new GameObject("NoteModeController").AddComponent<NoteModeController>();
-            GameplaySetup.instance.AddTab(TabName, $"{Name}.UI.Modifier.bsml", ModifierController.instance);
+            GameplaySetup.instance.AddTab("NoteMode", $"{Name}.UI.Modifier.bsml", ModifierController.instance);
         }
 
         [OnExit]
@@ -63,8 +59,6 @@ namespace NoteMode
         [OnEnable]
         public void OnEnable()
         {
-            
-            Log.Info($"NoteMode: OnEnable");
             ApplyHarmonyPatches();
         }
 

@@ -1,6 +1,11 @@
 ﻿using BeatSaberMarkupLanguage.GameplaySetup;
+using BeatSaberMarkupLanguage.Settings;
 using HarmonyLib;
 using IPA;
+using IPA.Config;
+using IPA.Config.Stores;
+using NoteMode.Configuration;
+using NoteMode.UI;
 using System;
 using System.Reflection;
 using UnityEngine;
@@ -16,19 +21,20 @@ namespace NoteMode
         internal static Harmony harmony = new Harmony(HarmonyId);
 
         internal static Plugin instance { get; private set; }
+        internal static IPALogger Log { get; private set; }
 
         internal static string Name => "NoteMode";
 
         internal static string TabName => "NoteMode";
 
-        internal static NoteModeController PluginController { get { return NoteModeController.instance; } }
-
         [Init]
-        public Plugin(IPALogger logger)
+        public void Init(IPALogger logger, Config conf)
         {
             instance = this;
-            Logger.log = logger;
-            Logger.log.Debug("Logger initialized.");
+            Log = logger;
+            Log.Info("NoteMode initialized.");
+            PluginConfig.Instance = conf.Generated<PluginConfig>();
+            Log.Debug("Logger initialized.");
         }
 
         #region BSIPA Config
@@ -46,16 +52,54 @@ namespace NoteMode
         [OnStart]
         public void OnApplicationStart()
         {
-            Config.Read();
-            GameplaySetup.instance.AddTab(TabName, $"{Name}.UI.ModifierUI.bsml", ModifierUI.instance);
+            //NoteConfig.Read();
             new GameObject("NoteModeController").AddComponent<NoteModeController>();
-            //ApplyHarmonyPatches();
+            GameplaySetup.instance.AddTab(TabName, $"{Name}.UI.Modifier.bsml", ModifierController.instance);
         }
 
+        [OnExit]
+        public void OnApplicationQuit() => Log.Debug("OnApplicationQuit");
+
         [OnEnable]
-        public void OnEnable() => harmony.PatchAll(Assembly.GetExecutingAssembly());
+        public void OnEnable()
+        {
+            
+            Log.Info($"NoteMode: OnEnable");
+            ApplyHarmonyPatches();
+        }
 
         [OnDisable]
-        public void OnDisable() => harmony.UnpatchSelf();
+        public void OnDisable()
+        {
+            RemoveHarmonyPatches();
+        }
+
+        public static void ApplyHarmonyPatches()
+        {
+            try
+            {
+                Log.Debug("Applying Harmony pathces.");
+                harmony.PatchAll(Assembly.GetExecutingAssembly());
+            }
+            catch (Exception ex)
+            {
+                Log.Critical("Error applying Harmony patches: " + ex.Message);
+                Log.Debug(ex);
+            }
+        }
+
+        public static void RemoveHarmonyPatches()
+        {
+            try
+            {
+                harmony.UnpatchSelf();
+            }
+            catch (Exception ex)
+            {
+                Log.Critical("Error removing Harmony patches: " + ex.Message);
+                Log.Debug(ex);
+            }
+            
+        }
     }
 }

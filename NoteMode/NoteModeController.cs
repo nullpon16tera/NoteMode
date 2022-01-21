@@ -13,18 +13,15 @@ namespace NoteMode
     {
         public static NoteModeController instance { get; private set; }
 
+        private bool _init;
         public bool inGame = false;
+        private float _prevNoteTime;
 
         private PauseController _pauseController;
-
-        private SaberManager _saberManager;
-        private NoteCutter _noteCutter;
         private BeatmapObjectManager _beatmapObjectManager;
-
-        private float _prevNoteTime;
+        private NoteCutter _noteCutter;
         private List<NoteController> _noteList = new List<NoteController>();
 
-        private bool _init;
 
         #region Monobehaviour Messages
         private void Awake()
@@ -39,6 +36,11 @@ namespace NoteMode
             instance = this;
             Logger.log?.Debug($"{name}: Awake()");
         }
+        private void Start()
+        {
+            Logger.log.Debug($"{name}: Start()");
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        }
 
         private void OnEnable()
         {
@@ -46,12 +48,6 @@ namespace NoteMode
 
         private void OnDisable()
         {
-        }
-
-        private void Start()
-        {
-            Logger.log.Debug($"{name}: Start()");
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
 
         public void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
@@ -69,7 +65,8 @@ namespace NoteMode
                     PluginConfig.Instance.noBlue ||
                     PluginConfig.Instance.oneColorRed ||
                     PluginConfig.Instance.oneColorBlue ||
-                    PluginConfig.Instance.noArrow
+                    PluginConfig.Instance.noArrow ||
+                    PluginConfig.Instance.noNotesBomb
                 )
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);
@@ -87,15 +84,11 @@ namespace NoteMode
             if (_pauseController == null)
             {
                 _pauseController = Resources.FindObjectsOfTypeAll<PauseController>().FirstOrDefault();
-                //_pauseController.didPauseEvent += OnPause;
-                //_pauseController.didResumeEvent += OnPauseResume;
             }
 
             yield return new WaitUntil(() => FindObjectsOfType<Saber>().Any());
             yield return new WaitForSecondsRealtime(0.1f);
 
-            if (_saberManager == null)
-                _saberManager = FindObjectsOfType<SaberManager>().FirstOrDefault();
             if (_noteCutter == null)
             {
                 CuttingManager cuttingManager = FindObjectsOfType<CuttingManager>().FirstOrDefault();
@@ -107,7 +100,8 @@ namespace NoteMode
                 PluginConfig.Instance.oneColorRed ||
                 PluginConfig.Instance.oneColorBlue ||
                 PluginConfig.Instance.noRed ||
-                PluginConfig.Instance.noBlue
+                PluginConfig.Instance.noBlue ||
+                PluginConfig.Instance.noNotesBomb
             )
             {
                 _beatmapObjectManager = _pauseController.GetPrivateField<BeatmapObjectManager>("_beatmapObjectManager");

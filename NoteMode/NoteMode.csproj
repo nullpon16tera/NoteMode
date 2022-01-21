@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="UI\noNotes.png" />
     <EmbeddedResource Include="UI\noBlue.png" />
     <EmbeddedResource Include="UI\noRed.png" />
   </ItemGroup>

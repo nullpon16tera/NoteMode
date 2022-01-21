@@ -29,6 +29,24 @@ namespace NoteMode.HarmonyPatches
                 return false;
             }
 
+            if (PluginConfig.Instance.noNotesBomb)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(BeatmapObjectManager), "SpawnBombNote")]
+    public class BeatmapOjbectManagerSpawnBombNote
+    {
+        static bool Prefix(ref NoteData noteData)
+        {
+            if (PluginConfig.Instance.noNotesBomb)
+            {
+                return false;
+            }
             return true;
         }
     }

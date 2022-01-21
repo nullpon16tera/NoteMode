@@ -15,6 +15,7 @@ namespace NoteMode.Configuration
         public virtual bool oneColorRed { get; set; } = false;
         public virtual bool oneColorBlue { get; set; } = false;
         public virtual bool noArrow { get; set; } = false;
+        public virtual bool noNotesBomb { get; set; } = false;
 
         public event Action<PluginConfig> ConfigChangedEvent;
 

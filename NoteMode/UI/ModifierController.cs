@@ -31,6 +31,7 @@ namespace NoteMode.UI
                         conf.oneColorRed = false;
                         conf.oneColorBlue = false;
                     }
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
                 }
                 conf.noRed = value;
                 
@@ -52,6 +53,7 @@ namespace NoteMode.UI
                         conf.oneColorRed = false;
                         conf.oneColorBlue = false;
                     }
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
                 }
                 conf.noBlue = value;
 
@@ -73,6 +75,7 @@ namespace NoteMode.UI
                         conf.noRed = false;
                         conf.noBlue = false;
                     }
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
                 }
                 conf.oneColorRed = value;
                 updateUI();
@@ -93,6 +96,7 @@ namespace NoteMode.UI
                         conf.noRed = false;
                         conf.noBlue = false;
                     }
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
                 }
                 conf.oneColorBlue = value;
                 updateUI();
@@ -105,7 +109,31 @@ namespace NoteMode.UI
             get => conf.noArrow;
             set
             {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                }
                 conf.noArrow = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("noNotesBomb")]
+        public bool noNotesBomb
+        {
+            get => conf.noNotesBomb;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noRed) noRed = false;
+                    if (conf.noBlue) noBlue = false;
+                    if (conf.oneColorRed) oneColorRed = false;
+                    if (conf.oneColorBlue) oneColorBlue = false;
+                    if (conf.noArrow) noArrow = false;
+                }
+                conf.noNotesBomb = value;
+                updateUI();
             }
         }
     }

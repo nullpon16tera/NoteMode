@@ -112,6 +112,7 @@ namespace NoteMode.UI
                 if (value)
                 {
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.reverseArrows) conf.reverseArrows = false;
                 }
                 conf.noArrow = value;
                 updateUI();
@@ -131,8 +132,25 @@ namespace NoteMode.UI
                     if (conf.oneColorRed) oneColorRed = false;
                     if (conf.oneColorBlue) oneColorBlue = false;
                     if (conf.noArrow) noArrow = false;
+                    if (conf.reverseArrows) conf.reverseArrows = false;
                 }
                 conf.noNotesBomb = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("reverseArrows")]
+        public bool reverseArrows
+        {
+            get => conf.reverseArrows;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noArrow) noArrow = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                }
+                conf.reverseArrows = value;
                 updateUI();
             }
         }

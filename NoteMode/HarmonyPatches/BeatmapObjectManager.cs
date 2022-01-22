@@ -20,6 +20,42 @@ namespace NoteMode.HarmonyPatches
                 property.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
             }
 
+            if (PluginConfig.Instance.reverseArrows)
+            {
+                if (noteData.cutDirection != NoteCutDirection.None)
+                {
+                    switch(noteData.cutDirection)
+                    {
+                        case NoteCutDirection.Left:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Right);
+                            break;
+                        case NoteCutDirection.Right:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Left);
+                            break;
+                        case NoteCutDirection.Up:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Down);
+                            break;
+                        case NoteCutDirection.Down:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Up);
+                            break;
+                        case NoteCutDirection.UpLeft:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.UpRight);
+                            break;
+                        case NoteCutDirection.UpRight:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.UpLeft);
+                            break;
+                        case NoteCutDirection.DownLeft:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.DownRight);
+                            break;
+                        case NoteCutDirection.DownRight:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.DownLeft);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
             if ((noteData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
             {
                 return false;

@@ -66,7 +66,8 @@ namespace NoteMode
                     PluginConfig.Instance.oneColorRed ||
                     PluginConfig.Instance.oneColorBlue ||
                     PluginConfig.Instance.noArrow ||
-                    PluginConfig.Instance.noNotesBomb
+                    PluginConfig.Instance.noNotesBomb ||
+                    PluginConfig.Instance.reverseArrows
                 )
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);
@@ -101,7 +102,8 @@ namespace NoteMode
                 PluginConfig.Instance.oneColorBlue ||
                 PluginConfig.Instance.noRed ||
                 PluginConfig.Instance.noBlue ||
-                PluginConfig.Instance.noNotesBomb
+                PluginConfig.Instance.noNotesBomb ||
+                PluginConfig.Instance.reverseArrows
             )
             {
                 _beatmapObjectManager = _pauseController.GetPrivateField<BeatmapObjectManager>("_beatmapObjectManager");

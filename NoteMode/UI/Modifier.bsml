@@ -6,14 +6,15 @@
 	<vertical child-control-height='false' pad-top='10'>
 		<horizontal child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false' spacing='4' horizontal-fit='PreferredSize'>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
-				<modifier value='noRed' apply-on-change='true' source='NoteMode.UI.noRed.png' text='No Red' hover-hint='[Disable Score] Remove all red notes. Hide a left saber.'></modifier>
-				<modifier value='noBlue' apply-on-change='true' source='NoteMode.UI.noBlue.png' text='No Blue' hover-hint='[Disable Score] Remove all blue notes. Hide a right saber.'></modifier>
+				<modifier value='noRed' apply-on-change='true' source='NoteMode.UI.noRed.png' text='Remove Red' hover-hint='[Disable Score] Remove all red notes. Hide a left saber.'></modifier>
+				<modifier value='noBlue' apply-on-change='true' source='NoteMode.UI.noBlue.png' text='Remove Blue' hover-hint='[Disable Score] Remove all blue notes. Hide a right saber.'></modifier>
 				<modifier value='oneColorRed' apply-on-change='true' source='NoteMode.UI.OneColorRed.png' text='One Color Red' hover-hint='[Disable Score] Change All blue notes to red.'></modifier>
 				<modifier value='oneColorBlue' apply-on-change='true' source='NoteMode.UI.OneColorBlue.png' text='One Color Blue' hover-hint='[Disable Score] Change All red notes to blue.'></modifier>
 				<modifier value='noArrow' apply-on-change='true' source='NoteMode.UI.NoArrow.png' text='No Arrows' hover-hint='[Disable Score] Change All notes no arrow.'></modifier>
 			</vertical>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
-				<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.UI.noNotes.png' text='No Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>
+				<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.UI.noNotes.png' text='Remove Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>
+				<modifier value='reverseArrows' apply-on-change='true' source='NoteMode.UI.reverseArrow.png' text='Reverse Arrows' hover-hint='[Disable Score] Reverse all notes arrow.'></modifier>
 			</vertical>
 		</horizontal>
 	</vertical>

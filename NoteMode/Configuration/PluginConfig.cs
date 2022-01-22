@@ -17,6 +17,8 @@ namespace NoteMode.Configuration
         public virtual bool noArrow { get; set; } = false;
         public virtual bool noNotesBomb { get; set; } = false;
 
+        public virtual bool reverseArrows { get; set; } = false;
+
         public event Action<PluginConfig> ConfigChangedEvent;
 
         /// <summary>

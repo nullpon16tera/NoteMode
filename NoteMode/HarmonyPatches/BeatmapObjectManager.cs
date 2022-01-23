@@ -39,16 +39,16 @@ namespace NoteMode.HarmonyPatches
                             noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Up);
                             break;
                         case NoteCutDirection.UpLeft:
-                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.UpRight);
-                            break;
-                        case NoteCutDirection.UpRight:
-                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.UpLeft);
-                            break;
-                        case NoteCutDirection.DownLeft:
                             noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.DownRight);
                             break;
-                        case NoteCutDirection.DownRight:
+                        case NoteCutDirection.UpRight:
                             noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.DownLeft);
+                            break;
+                        case NoteCutDirection.DownLeft:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.UpRight);
+                            break;
+                        case NoteCutDirection.DownRight:
+                            noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.UpLeft);
                             break;
                         default:
                             break;

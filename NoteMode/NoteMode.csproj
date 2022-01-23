@@ -115,7 +115,6 @@
     <Compile Include="HarmonyPatches\ColorManager.cs" />
     <Compile Include="HarmonyPatches\NoteBasicCutInfoHelper.cs" />
     <Compile Include="HarmonyPatches\NoteController.cs" />
-    <Compile Include="HarmonyPatches\NoteCutter.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />

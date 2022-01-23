@@ -13,14 +13,7 @@ namespace NoteMode
     {
         public static NoteModeController instance { get; private set; }
 
-        private bool _init;
         public bool inGame = false;
-        private float _prevNoteTime;
-
-        private PauseController _pauseController;
-        private BeatmapObjectManager _beatmapObjectManager;
-        private NoteCutter _noteCutter;
-        private List<NoteController> _noteList = new List<NoteController>();
 
 
         #region Monobehaviour Messages
@@ -52,7 +45,6 @@ namespace NoteMode
 
         public void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
         {
-            _init = false;
             inGame = false;
 
             if (nextScene.name == "GameCore")
@@ -72,85 +64,15 @@ namespace NoteMode
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);
                 }
-
-                StartCoroutine(OnGameCoreCoroutine());
+            }
+            else if (nextScene.name == "MainMenu")
+            {
+                inGame = false;
             }
         }
-
-
-        private IEnumerator OnGameCoreCoroutine()
-        {
-            yield return null;
-
-            if (_pauseController == null)
-            {
-                _pauseController = Resources.FindObjectsOfTypeAll<PauseController>().FirstOrDefault();
-            }
-
-            yield return new WaitUntil(() => FindObjectsOfType<Saber>().Any());
-            yield return new WaitForSecondsRealtime(0.1f);
-
-            if (_noteCutter == null)
-            {
-                CuttingManager cuttingManager = FindObjectsOfType<CuttingManager>().FirstOrDefault();
-                _noteCutter = cuttingManager.GetPrivateField<NoteCutter>("_noteCutter");
-            }
-
-            if (
-                PluginConfig.Instance.noArrow ||
-                PluginConfig.Instance.oneColorRed ||
-                PluginConfig.Instance.oneColorBlue ||
-                PluginConfig.Instance.noRed ||
-                PluginConfig.Instance.noBlue ||
-                PluginConfig.Instance.noNotesBomb ||
-                PluginConfig.Instance.reverseArrows
-            )
-            {
-                _beatmapObjectManager = _pauseController.GetPrivateField<BeatmapObjectManager>("_beatmapObjectManager");
-                _beatmapObjectManager.noteWasSpawnedEvent -= OnNoteWasSpawned;
-                _beatmapObjectManager.noteWasSpawnedEvent += OnNoteWasSpawned;
-
-                _prevNoteTime = 0;
-                _noteList.Clear();
-            }
-
-            if (_pauseController == null)
-            {
-                Logger.log.Debug("GameCore Init Fail");
-                Logger.log.Debug($"{_pauseController}, {_noteCutter}");
-            }
-            else
-            {
-                Logger.log.Debug("GameCore Init Success");
-            }
-
-            _init = true;
-        }
-
-        private void OnNoteWasSpawned(NoteController noteController)
-        {
-            float time;
-
-            if (noteController.noteData.colorType != ColorType.None)
-            {
-                time = noteController.noteData.time;
-                if (time != _prevNoteTime)
-                {
-                    _prevNoteTime = time;
-                    _noteList.Clear();
-                }
-                _noteList.Add(noteController);
-            }
-        }
-
-        
 
         private void Update()
         {
-            if (!_init)
-            {
-                return;
-            }
         }
 
         private void OnDestroy()

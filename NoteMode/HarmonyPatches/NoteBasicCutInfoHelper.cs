@@ -8,16 +8,19 @@ namespace NoteMode.HarmonyPatches
     {
         static void Postfix(ColorType colorType, ref bool saberTypeOK)
         {
-            if (
-                PluginConfig.Instance.noRed ||
-                PluginConfig.Instance.noBlue ||
-                PluginConfig.Instance.oneColorBlue ||
-                PluginConfig.Instance.oneColorRed
-            )
+            if (NoteModeController.instance?.inGame == true)
             {
-                if ((colorType != ColorType.None))
+                if (
+                    PluginConfig.Instance.noRed ||
+                    PluginConfig.Instance.noBlue ||
+                    PluginConfig.Instance.oneColorBlue ||
+                    PluginConfig.Instance.oneColorRed
+                )
                 {
-                    saberTypeOK = true;
+                    if ((colorType != ColorType.None))
+                    {
+                        saberTypeOK = true;
+                    }
                 }
             }
         }

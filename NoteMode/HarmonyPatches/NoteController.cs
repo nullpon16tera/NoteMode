@@ -9,11 +9,14 @@ namespace NoteMode.HarmonyPatches
     {
         static void Prefix(ref NoteData noteData)
         {
-            if (PluginConfig.Instance.noArrow)
+            if (NoteModeController.instance?.inGame == true)
             {
-                if (noteData.cutDirection != NoteCutDirection.None)
+                if (PluginConfig.Instance.noArrow)
                 {
-                    noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Any);
+                    if (noteData.cutDirection != NoteCutDirection.None)
+                    {
+                        noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Any);
+                    }
                 }
             }
         }

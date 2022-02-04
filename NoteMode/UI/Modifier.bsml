@@ -1,20 +1,29 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-	<vertical child-control-height='false' pad-top='2'>
-		<tab-selector tab-tag='settings-tab' />
-	</vertical>
-
-	<vertical child-control-height='false' pad-top='10'>
-		<horizontal child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false' spacing='4' horizontal-fit='PreferredSize'>
+	<vertical pad-top='5'>
+		<horizontal child-expand-width='false' spacing='4'>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noRed' apply-on-change='true' source='NoteMode.UI.noRed.png' text='Remove Red' hover-hint='[Disable Score] Remove all red notes. Hide a left saber.'></modifier>
 				<modifier value='noBlue' apply-on-change='true' source='NoteMode.UI.noBlue.png' text='Remove Blue' hover-hint='[Disable Score] Remove all blue notes. Hide a right saber.'></modifier>
 				<modifier value='oneColorRed' apply-on-change='true' source='NoteMode.UI.OneColorRed.png' text='One Color Red' hover-hint='[Disable Score] Change All blue notes to red.'></modifier>
 				<modifier value='oneColorBlue' apply-on-change='true' source='NoteMode.UI.OneColorBlue.png' text='One Color Blue' hover-hint='[Disable Score] Change All red notes to blue.'></modifier>
+			</vertical>
+			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noArrow' apply-on-change='true' source='NoteMode.UI.NoArrow.png' text='No Arrows' hover-hint='[Disable Score] Change All notes no arrow.'></modifier>
 			</vertical>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.UI.noNotes.png' text='Remove Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>
 				<modifier value='reverseArrows' apply-on-change='true' source='NoteMode.UI.reverseArrow.png' text='Reverse Arrows' hover-hint='[Disable Score] Reverse all notes arrow.'></modifier>
+			</vertical>
+		</horizontal>
+		<horizontal pad-top='5'>
+			<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='70'>
+				<bool-setting value='isNotesScale' apply-on-change='true' text='Notes Scale Enable' hover-hint='Enable notes scale change'></bool-setting>
+				<horizontal>
+					<horizontal pad-right='4'>
+						<slider-setting value='notesScale' apply-on-change='true' text='Scale' hover-hint='The default value is 1.00' min='0.5' max='1' increment='0.05'></slider-setting>
+					</horizontal>
+					<button text='Scale Reset' pref-width='21' on-click='size_reset_click'></button>
+				</horizontal>
 			</vertical>
 		</horizontal>
 	</vertical>

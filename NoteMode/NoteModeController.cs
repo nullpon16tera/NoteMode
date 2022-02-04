@@ -1,9 +1,5 @@
 ﻿using BS_Utils.Gameplay;
 using NoteMode.Configuration;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,10 +43,10 @@ namespace NoteMode
         {
             inGame = false;
 
+            if (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer) { return; }
             if (nextScene.name == "GameCore")
             {
                 inGame = true;
-                Logger.log.Debug("GameCore Scene Started");
 
                 if (
                     PluginConfig.Instance.noRed ||

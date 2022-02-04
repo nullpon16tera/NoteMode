@@ -1,20 +1,53 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Parser;
+using BeatSaberMarkupLanguage.ViewControllers;
 using NoteMode.Configuration;
 
 
 namespace NoteMode.UI
 {
-    public class ModifierController : PersistentSingleton<ModifierController>
+    [ViewDefinition("NoteMode.UI.Modifier.bsml")]
+    [HotReload(RelativePathToLayout = @"Modifier.bsml")]
+    public class ModifierController : PersistentSingleton<ModifierController>/*, BSMLAutomaticViewController*/
     {
+        /*public static ModifierController instance { get; private set; }*/
+
         [UIParams]
         BSMLParserParams parserParams;
 
         private static PluginConfig conf = PluginConfig.Instance;
+        //private bool _isIndex;
 
         public void updateUI()
         {
             parserParams.EmitEvent("cancel");
+        }
+
+        [UIAction("size_reset_click")]
+        private void OnSizeReset()
+        {
+            conf.notesScale = 1.0f;
+            updateUI();
+        }
+
+        [UIValue("notesScale")]
+        public float notesScale
+        {
+            get => conf.notesScale;
+            set
+            {
+                if (conf.isNotesScale)
+                {
+                    conf.notesScale = value;
+                }
+            }
+        }
+
+        [UIValue("isNotesScale")]
+        public bool isNotesScale
+        {
+            get => conf.isNotesScale;
+            set => conf.isNotesScale = value;
         }
 
         [UIValue("noRed")]

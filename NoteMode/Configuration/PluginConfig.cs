@@ -16,8 +16,9 @@ namespace NoteMode.Configuration
         public virtual bool oneColorBlue { get; set; } = false;
         public virtual bool noArrow { get; set; } = false;
         public virtual bool noNotesBomb { get; set; } = false;
-
         public virtual bool reverseArrows { get; set; } = false;
+        public virtual float notesScale { get; set; } = 1f;
+        public virtual bool isNotesScale { get; set; } = false;
 
         public event Action<PluginConfig> ConfigChangedEvent;
 

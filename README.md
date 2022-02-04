@@ -9,5 +9,6 @@ AlternativePlayとNalulunaModifierを組み合わせた使い方に、当たり�
 - No Arrows: 全てのノーツをドットに変更する
 - Remove Notes Bomb: ノーツとボムを抹消するモード（壁譜面の壁だけ見たかっただけ）
 - Reverse Arrows: 全てのノーツ向きを反転させる（簡単な譜面でプレイすること！）
+- Note Scale: ノーツサイズを変更する（当たり判定も変更されます）
 
 ![NoteMode](https://raw.githubusercontent.com/nullpon16tera/nullpon16tera.github.io/master/NoteMode/note_mode.png "NoteMode Modifier")

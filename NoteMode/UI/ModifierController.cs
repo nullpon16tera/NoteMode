@@ -6,11 +6,8 @@ using NoteMode.Configuration;
 
 namespace NoteMode.UI
 {
-    [ViewDefinition("NoteMode.UI.Modifier.bsml")]
-    [HotReload(RelativePathToLayout = @"Modifier.bsml")]
-    public class ModifierController : PersistentSingleton<ModifierController>/*, BSMLAutomaticViewController*/
+    public class ModifierController : PersistentSingleton<ModifierController>
     {
-        /*public static ModifierController instance { get; private set; }*/
 
         [UIParams]
         BSMLParserParams parserParams;

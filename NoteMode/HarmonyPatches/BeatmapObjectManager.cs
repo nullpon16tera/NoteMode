@@ -7,10 +7,17 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPatch(typeof(BeatmapObjectManager), "SpawnBasicNote")]
     public class BeatmapObjectManagerSpawnBasicNote
     {
-        static bool Prefix(ref NoteData noteData)
+        public static NoteCutDirection copyNoteCutDirection;
+        private static ColorType copyColorType;
+
+        static bool Prefix(ref NoteData noteData, ref BeatmapObjectSpawnMovementData.NoteSpawnData noteSpawnData, float rotation, float cutDirectionAngleOffset)
         {
-            if (NoteModeController.instance?.inGame == true)
+            if (NoteModeController.instance.inGame == true)
             {
+                if (PluginConfig.Instance.oneColorRed || PluginConfig.Instance.oneColorBlue)
+                {
+                    copyColorType = noteData.colorType;
+                }
                 if ((noteData.colorType == ColorType.ColorB) && PluginConfig.Instance.oneColorRed)
                 {
                     PropertyInfo property = typeof(NoteData).GetProperty("colorType");
@@ -20,6 +27,10 @@ namespace NoteMode.HarmonyPatches
                 {
                     PropertyInfo property = typeof(NoteData).GetProperty("colorType");
                     property.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                }
+                if (PluginConfig.Instance.reverseArrows || PluginConfig.Instance.noArrow)
+                {
+                    copyNoteCutDirection = noteData.cutDirection;
                 }
 
                 if (PluginConfig.Instance.reverseArrows)
@@ -58,6 +69,14 @@ namespace NoteMode.HarmonyPatches
                     }
                 }
 
+                if (PluginConfig.Instance.noArrow)
+                {
+                    if (noteData.cutDirection != NoteCutDirection.None)
+                    {
+                        noteData.SetNoteToAnyCutDirection();
+                    }
+                }
+
                 if ((noteData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
                 {
                     return false;
@@ -74,6 +93,31 @@ namespace NoteMode.HarmonyPatches
             }
 
             return true;
+        }
+
+        public static void Postfix(ref NoteData noteData, ref BeatmapObjectSpawnMovementData.NoteSpawnData noteSpawnData, float rotation, float cutDirectionAngleOffset)
+        {
+            if (NoteModeController.instance.inGame == true)
+            {
+                if ((copyColorType == ColorType.ColorB) && PluginConfig.Instance.oneColorRed)
+                {
+                    PropertyInfo property = typeof(NoteData).GetProperty("colorType");
+                    property.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                }
+                else if ((copyColorType == ColorType.ColorA) && PluginConfig.Instance.oneColorBlue)
+                {
+                    PropertyInfo property = typeof(NoteData).GetProperty("colorType");
+                    property.SetValue(noteData, ColorType.ColorA, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                }
+
+                if (PluginConfig.Instance.reverseArrows || PluginConfig.Instance.noArrow)
+                {
+                    if (noteData.cutDirection != NoteCutDirection.None)
+                    {
+                        noteData.SetNonPublicProperty("cutDirection", copyNoteCutDirection);
+                    }
+                }
+            }
         }
     }
 

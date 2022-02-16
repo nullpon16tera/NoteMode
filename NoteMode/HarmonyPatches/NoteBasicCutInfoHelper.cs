@@ -8,7 +8,7 @@ namespace NoteMode.HarmonyPatches
     {
         static void Postfix(ColorType colorType, ref bool saberTypeOK)
         {
-            if (NoteModeController.instance?.inGame == true)
+            if (NoteModeController.instance.inGame == true)
             {
                 if (
                     PluginConfig.Instance.noRed ||

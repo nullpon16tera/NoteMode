@@ -1,5 +1,8 @@
 ﻿using BS_Utils.Gameplay;
 using NoteMode.Configuration;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,11 +28,6 @@ namespace NoteMode
             instance = this;
             Logger.log?.Debug($"{name}: Awake()");
         }
-        private void Start()
-        {
-            Logger.log.Debug($"{name}: Start()");
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
-        }
 
         private void OnEnable()
         {
@@ -38,6 +36,27 @@ namespace NoteMode
         private void OnDisable()
         {
         }
+
+        private void Start()
+        {
+            Logger.log.Debug($"{name}: Start()");
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        }
+
+        private void Update()
+        {
+        }
+
+        private void OnDestroy()
+        {
+            Logger.log?.Debug($"{name}: OnDestroy()");
+            if (instance == this)
+            {
+                instance = null;
+            }
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+        }
+        #endregion
 
         public void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
         {
@@ -67,19 +86,23 @@ namespace NoteMode
             }
         }
 
-        private void Update()
+        public void OnGameSceneLoaded()
         {
+
         }
 
-        private void OnDestroy()
+        public void BeginGameCoreScene()
         {
-            Logger.log?.Debug($"{name}: OnDestroy()");
-            if (instance == this)
+            if (PluginConfig.Instance.noArrow)
             {
-                instance = null;
+                this.StartCoroutine(this.TransformMap());
             }
-            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
-        #endregion
+
+        private IEnumerator TransformMap()
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            
+        }
     }
 }

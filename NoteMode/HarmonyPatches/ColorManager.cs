@@ -8,7 +8,7 @@ namespace NoteMode.HarmonyPatches
     {
         static void Prefix(ref SaberType type)
         {
-            if (NoteModeController.instance?.inGame == true)
+            if (NoteModeController.instance.inGame == true)
             {
                 if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
                 {
@@ -26,7 +26,7 @@ namespace NoteMode.HarmonyPatches
         {
             static void Prefix(ref SaberType type)
             {
-                if (NoteModeController.instance?.inGame == true)
+                if (NoteModeController.instance.inGame == true)
                 {
                     if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
                     {

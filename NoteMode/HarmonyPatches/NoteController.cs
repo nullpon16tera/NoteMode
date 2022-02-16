@@ -9,15 +9,17 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPatch(typeof(NoteController), "Init")]
     static class NoteControllerInit
     {
-        static void Prefix(ref NoteData noteData, ref float worldRotation, Transform ____noteTransform)
+        static void Prefix(ref NoteData noteData)
         {
-            if (NoteModeController.instance?.inGame == true)
+            if (NoteModeController.instance.inGame == true)
             {
                 if (PluginConfig.Instance.noArrow)
                 {
                     if (noteData.cutDirection != NoteCutDirection.None)
                     {
-                        noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Any);
+                        //noteData.SetNonPublicProperty("cutDirection", NoteCutDirection.Any);
+                        //noteData.ChangeNoteCutDirection(NoteCutDirection.Any);
+                        //noteData.SetNoteToAnyCutDirection();
                     }
                 }
             }
@@ -26,7 +28,8 @@ namespace NoteMode.HarmonyPatches
 
         static void Postfix(Transform ____noteTransform)
         {
-            if (NoteModeController.instance?.inGame == true)
+
+            if (NoteModeController.instance.inGame == true)
             {
                 if (PluginConfig.Instance.isNotesScale)
                 {

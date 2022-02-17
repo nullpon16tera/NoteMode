@@ -116,6 +116,7 @@
     <Compile Include="HarmonyPatches\NoteBasicCutInfoHelper.cs" />
     <Compile Include="HarmonyPatches\NoteController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="NoteModeModel.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="NoteModeController.cs" />

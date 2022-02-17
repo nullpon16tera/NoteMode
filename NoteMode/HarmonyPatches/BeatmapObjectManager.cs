@@ -7,30 +7,28 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPatch(typeof(BeatmapObjectManager), "SpawnBasicNote")]
     public class BeatmapObjectManagerSpawnBasicNote
     {
-        public static NoteCutDirection copyNoteCutDirection;
-        private static ColorType copyColorType;
+        private static PropertyInfo s_colorTypeProperty;
+        public static PropertyInfo ColorTypeProperty => s_colorTypeProperty ?? (s_colorTypeProperty = typeof(NoteData).GetProperty("colorType"));
 
-        static bool Prefix(ref NoteData noteData, ref BeatmapObjectSpawnMovementData.NoteSpawnData noteSpawnData, float rotation, float cutDirectionAngleOffset)
+        static bool Prefix(ref NoteData noteData, ref NoteModeModel __state)
         {
             if (NoteModeController.instance.inGame == true)
             {
                 if (PluginConfig.Instance.oneColorRed || PluginConfig.Instance.oneColorBlue)
                 {
-                    copyColorType = noteData.colorType;
+                    __state.SetColorType(noteData.colorType);
                 }
                 if ((noteData.colorType == ColorType.ColorB) && PluginConfig.Instance.oneColorRed)
                 {
-                    PropertyInfo property = typeof(NoteData).GetProperty("colorType");
-                    property.SetValue(noteData, ColorType.ColorA, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                    ColorTypeProperty.SetValue(noteData, ColorType.ColorA, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
                 }
                 else if ((noteData.colorType == ColorType.ColorA) && PluginConfig.Instance.oneColorBlue)
                 {
-                    PropertyInfo property = typeof(NoteData).GetProperty("colorType");
-                    property.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                    ColorTypeProperty.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
                 }
                 if (PluginConfig.Instance.reverseArrows || PluginConfig.Instance.noArrow)
                 {
-                    copyNoteCutDirection = noteData.cutDirection;
+                    __state.SetDirection(noteData.cutDirection);
                 }
 
                 if (PluginConfig.Instance.reverseArrows)
@@ -95,26 +93,24 @@ namespace NoteMode.HarmonyPatches
             return true;
         }
 
-        public static void Postfix(ref NoteData noteData, ref BeatmapObjectSpawnMovementData.NoteSpawnData noteSpawnData, float rotation, float cutDirectionAngleOffset)
+        public static void Postfix(NoteData noteData, ref NoteModeModel __state)
         {
             if (NoteModeController.instance.inGame == true)
             {
-                if ((copyColorType == ColorType.ColorB) && PluginConfig.Instance.oneColorRed)
+                if ((__state.CopyColorType == ColorType.ColorB) && PluginConfig.Instance.oneColorRed)
                 {
-                    PropertyInfo property = typeof(NoteData).GetProperty("colorType");
-                    property.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                    ColorTypeProperty.SetValue(noteData, ColorType.ColorB, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
                 }
-                else if ((copyColorType == ColorType.ColorA) && PluginConfig.Instance.oneColorBlue)
+                else if ((__state.CopyColorType == ColorType.ColorA) && PluginConfig.Instance.oneColorBlue)
                 {
-                    PropertyInfo property = typeof(NoteData).GetProperty("colorType");
-                    property.SetValue(noteData, ColorType.ColorA, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                    ColorTypeProperty.SetValue(noteData, ColorType.ColorA, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
                 }
 
                 if (PluginConfig.Instance.reverseArrows || PluginConfig.Instance.noArrow)
                 {
                     if (noteData.cutDirection != NoteCutDirection.None)
                     {
-                        noteData.SetNonPublicProperty("cutDirection", copyNoteCutDirection);
+                        noteData.SetNonPublicProperty("cutDirection", __state.CopyNoteCutDirection);
                     }
                 }
             }

@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatches\BeatmapDataTransformHelper.cs" />
     <Compile Include="HarmonyPatches\BeatmapObjectManager.cs" />
     <Compile Include="HarmonyPatches\ColorManager.cs" />
     <Compile Include="HarmonyPatches\NoteBasicCutInfoHelper.cs" />

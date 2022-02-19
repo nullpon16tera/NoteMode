@@ -23,7 +23,6 @@ namespace NoteMode.HarmonyPatches
         private static void SwitchNoteColorType(NoteData noteData)
         {
             ColorType colorType = (ColorType)BeatmapDataTransformHelperCreateTransformedBeatmapData.ColorTypeProperty.GetValue(noteData);
-            Plugin.Log.Debug($"ColorType: {ColorType.ColorA}");
             if (colorType == ColorType.ColorA)
             {
                 BeatmapDataTransformHelperCreateTransformedBeatmapData.SetNoteColorType(noteData, ColorType.ColorB);

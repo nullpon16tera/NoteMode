@@ -74,7 +74,9 @@ namespace NoteMode
                     PluginConfig.Instance.oneColorBlue ||
                     PluginConfig.Instance.noArrow ||
                     PluginConfig.Instance.noNotesBomb ||
-                    PluginConfig.Instance.reverseArrows
+                    PluginConfig.Instance.reverseArrows ||
+                    PluginConfig.Instance.randomizeArrows ||
+                    PluginConfig.Instance.restrictedrandomizeArrows
                 )
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);

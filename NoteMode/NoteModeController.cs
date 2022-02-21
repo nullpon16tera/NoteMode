@@ -87,24 +87,5 @@ namespace NoteMode
                 inGame = false;
             }
         }
-
-        public void OnGameSceneLoaded()
-        {
-
-        }
-
-        public void BeginGameCoreScene()
-        {
-            if (PluginConfig.Instance.noArrow)
-            {
-                this.StartCoroutine(this.TransformMap());
-            }
-        }
-
-        private IEnumerator TransformMap()
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-            
-        }
     }
 }

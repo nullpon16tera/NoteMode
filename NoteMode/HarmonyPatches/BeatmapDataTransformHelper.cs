@@ -124,10 +124,12 @@ namespace NoteMode.HarmonyPatches
                     if ((int)noteData.noteLineLayer == 0)
                     {
                         if (rand2 == 1) noteData.ChangeNoteCutDirection(NoteCutDirection.DownLeft);
-                    } else if ((int)noteData.noteLineLayer == 2)
+                    }
+                    else if ((int)noteData.noteLineLayer == 2)
                     {
                         if (rand2 == 1) noteData.ChangeNoteCutDirection(NoteCutDirection.UpLeft);
-                    } else
+                    }
+                    else
                     {
                         //if (rand3 == 1) noteData.ChangeNoteCutDirection(NoteCutDirection.UpLeft);
                         //if (rand3 == 2) noteData.ChangeNoteCutDirection(NoteCutDirection.DownLeft);
@@ -202,6 +204,7 @@ namespace NoteMode.HarmonyPatches
                 //noteData.ChangeNoteCutDirection(NoteCutDirection.Any);
             }
         }
+
         [HarmonyPriority(600)]
         private static void Prefix(ref IReadonlyBeatmapData beatmapData, IPreviewBeatmapLevel beatmapLevel, GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings, bool leftHanded, EnvironmentEffectsFilterPreset environmentEffectsFilterPreset, EnvironmentIntensityReductionOptions environmentIntensityReductionOptions, bool screenDisplacementEffectsEnabled)
         {

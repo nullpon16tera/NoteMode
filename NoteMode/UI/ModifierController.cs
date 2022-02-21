@@ -143,6 +143,8 @@ namespace NoteMode.UI
                 {
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
                     if (conf.reverseArrows) conf.reverseArrows = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
                 }
                 conf.noArrow = value;
                 updateUI();
@@ -163,6 +165,8 @@ namespace NoteMode.UI
                     if (conf.oneColorBlue) oneColorBlue = false;
                     if (conf.noArrow) noArrow = false;
                     if (conf.reverseArrows) conf.reverseArrows = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
                 }
                 conf.noNotesBomb = value;
                 updateUI();
@@ -181,6 +185,40 @@ namespace NoteMode.UI
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
                 }
                 conf.reverseArrows = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("randomizeArrows")]
+        public bool randomizeArrows
+        {
+            get => conf.randomizeArrows;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noArrow) noArrow = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
+                }
+                conf.randomizeArrows = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("restrictedrandomizeArrows")]
+        public bool restrictedrandomizeArrows
+        {
+            get => conf.restrictedrandomizeArrows;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noArrow) noArrow = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                }
+                conf.restrictedrandomizeArrows = value;
                 updateUI();
             }
         }

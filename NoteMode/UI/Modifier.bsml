@@ -13,8 +13,8 @@
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.UI.noNotes.png' text='Remove Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>
 				<modifier value='reverseArrows' apply-on-change='true' source='NoteMode.UI.reverseArrow.png' text='Reverse Arrows' hover-hint='[Disable Score] Reverse all notes arrow.'></modifier>
-				<modifier value='randomizeArrows' apply-on-change='true' source='NoteMode.UI.reverseArrow.png' text='Randomize Arrows' hover-hint='[Disable Score] Randomize all notes arrow.'></modifier>
-				<modifier value='restrictedrandomizeArrows' apply-on-change='true' source='NoteMode.UI.reverseArrow.png' text='Restricted Randomize Arrows' hover-hint='[Disable Score] Randomize all notes arrow.'></modifier>
+				<modifier value='randomizeArrows' apply-on-change='true' source='NoteMode.UI.randomizeCutDirection.png' text='Randomize Arrows' hover-hint='[Disable Score] Randomize all notes arrow.'></modifier>
+				<modifier value='restrictedrandomizeArrows' apply-on-change='true' source='NoteMode.UI.restrictedRandomizeCutDirection.png' text='                           Restricted Randomize Arrows' hover-hint='[Disable Score] Randomize all notes arrow.'></modifier>
 			</vertical>
 		</horizontal>
 		<horizontal pad-top='5'>

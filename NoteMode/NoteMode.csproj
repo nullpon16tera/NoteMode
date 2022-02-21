@@ -150,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="UI\randomizeCutDirection.png" />
+    <EmbeddedResource Include="UI\restrictedRandomizeCutDirection.png" />
     <EmbeddedResource Include="UI\reverseArrow.png" />
     <EmbeddedResource Include="UI\noNotes.png" />
     <EmbeddedResource Include="UI\noBlue.png" />

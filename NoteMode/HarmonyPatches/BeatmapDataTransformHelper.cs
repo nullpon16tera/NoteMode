@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using NoteMode.Configuration;
 using System;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -206,7 +207,7 @@ namespace NoteMode.HarmonyPatches
         }
 
         [HarmonyPriority(600)]
-        private static void Prefix(ref IReadonlyBeatmapData beatmapData, IPreviewBeatmapLevel beatmapLevel, GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings, bool leftHanded, EnvironmentEffectsFilterPreset environmentEffectsFilterPreset, EnvironmentIntensityReductionOptions environmentIntensityReductionOptions, bool screenDisplacementEffectsEnabled)
+        private static void Prefix(ref IReadonlyBeatmapData beatmapData, IPreviewBeatmapLevel beatmapLevel, GameplayModifiers gameplayModifiers, bool leftHanded, EnvironmentEffectsFilterPreset environmentEffectsFilterPreset, EnvironmentIntensityReductionOptions environmentIntensityReductionOptions, MainSettingsModelSO mainSettingsModel)
         {
             if (!PluginConfig.Instance.noArrow && !PluginConfig.Instance.oneColorBlue && !PluginConfig.Instance.oneColorRed && !PluginConfig.Instance.reverseArrows && !PluginConfig.Instance.randomizeArrows && !PluginConfig.Instance.restrictedrandomizeArrows)
             {
@@ -214,7 +215,8 @@ namespace NoteMode.HarmonyPatches
             }
 
             BeatmapData copy = beatmapData.GetCopy();
-            foreach (BeatmapObjectData beatmapObjectData in copy.beatmapObjectsData)
+            var beatmapObjectDataItems = copy.allBeatmapDataItems.Where(x => x is BeatmapObjectData).Select(x => x as BeatmapObjectData).ToArray();
+            foreach (BeatmapObjectData beatmapObjectData in beatmapObjectDataItems)
             {
                 NoteData noteData = beatmapObjectData as NoteData;
                 if (noteData != null && noteData.cutDirection != NoteCutDirection.None)
@@ -222,6 +224,20 @@ namespace NoteMode.HarmonyPatches
                     if (PluginConfig.Instance.noArrow)
                     {
                         noteData.SetNoteToAnyCutDirection();
+                    }
+
+                    if ((noteData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
+                    {
+                        noteData.ChangeNoteCutDirection(NoteCutDirection.None);
+                    }
+                    else if ((noteData.colorType == ColorType.ColorB) && PluginConfig.Instance.noBlue)
+                    {
+                        noteData.ChangeNoteCutDirection(NoteCutDirection.None);
+                    }
+
+                    if (PluginConfig.Instance.noNotesBomb)
+                    {
+                        noteData.ChangeToGameNote();
                     }
 
                     if (noteData.colorType == ColorType.ColorA && PluginConfig.Instance.oneColorBlue)
@@ -250,6 +266,7 @@ namespace NoteMode.HarmonyPatches
                 }
             }
             beatmapData = copy;
+            
         }
 
         

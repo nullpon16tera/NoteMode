@@ -1,4 +1,4 @@
-﻿/*using BS_Utils.Gameplay;*/
+﻿using BS_Utils.Gameplay;
 using NoteMode.Configuration;
 using System.Collections;
 using System.Collections.Generic;
@@ -62,7 +62,7 @@ namespace NoteMode
         {
             inGame = false;
 
-            /*if (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer) { return; }*/
+            if (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer) { return; }
             if (nextScene.name == "GameCore")
             {
                 inGame = true;
@@ -79,7 +79,7 @@ namespace NoteMode
                     PluginConfig.Instance.restrictedrandomizeArrows
                 )
                 {
-                    //ScoreSubmission.DisableSubmission(Plugin.Name);
+                    ScoreSubmission.DisableSubmission(Plugin.Name);
                 }
             }
             else if (nextScene.name == "MainMenu")

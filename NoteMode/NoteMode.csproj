@@ -55,6 +55,9 @@
     <Reference Include="GameplayCore">
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Beat Saber\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
     </Reference>
+    <Reference Include="MockCore">
+      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Beat Saber\Beat Saber_Data\Managed\MockCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -154,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="UI\allBurstSliderHead.png" />
     <EmbeddedResource Include="UI\randomizeCutDirection.png" />
     <EmbeddedResource Include="UI\restrictedRandomizeCutDirection.png" />
     <EmbeddedResource Include="UI\reverseArrow.png" />

@@ -26,24 +26,35 @@ namespace NoteMode.HarmonyPatches
         }
     }
 
+    /**
+     * Wall
+     */
     [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessObstacleData")]
     public class BasicBeatmapOjbectManagerProcessObstacleData
     {
-        static bool Prefix(ref ObstacleData obstacleData, ref BeatmapObjectSpawnMovementData.ObstacleSpawnData obstacleSpawnData)
+        static void Prefix(ref ObstacleData obstacleData, ref BeatmapObjectSpawnMovementData.ObstacleSpawnData obstacleSpawnData)
         {
             if (PluginConfig.Instance.noNotesBomb)
             {
-                return false;
+                
             }
-            return true;
         }
     }
 
+    /**
+    * Arc or Chain Notes
+    */
     [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessSliderData")]
     public class BasicBeatmapOjbectManagerProcessSliderData
     {
-        static bool Prefix(ref SliderData sliderData)
+        static bool Prefix(ref SliderData sliderData, ref BeatmapObjectSpawnMovementData.SliderSpawnData sliderSpawnData, float rotation)
         {
+
+            if (sliderData.sliderType == SliderData.Type.Burst)
+            {
+                //return false;
+            }
+
             if ((sliderData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
             {
                 return false;

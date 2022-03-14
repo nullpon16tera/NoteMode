@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using IPA.Utilities;
 using NoteMode.Configuration;
 using System;
 using System.Linq;
@@ -286,6 +287,90 @@ namespace NoteMode.HarmonyPatches
                         }
 
                     }*/
+                    
+                    if (noteData.cutDirection != NoteCutDirection.None)
+                    {
+                        NoteLineLayer tailBeforeJumpLineLayer = NoteLineLayer.Upper;
+                        int tailLineIndex = -1;
+                        bool isTailBeforeJumpLineLayer = false;
+                        if (noteData.noteLineLayer == NoteLineLayer.Upper)
+                        {
+                            if (noteData.cutDirection == NoteCutDirection.Down || noteData.cutDirection == NoteCutDirection.DownRight || noteData.cutDirection == NoteCutDirection.DownLeft)
+                            {
+                                tailBeforeJumpLineLayer = NoteLineLayer.Base;
+                                isTailBeforeJumpLineLayer = true;
+                            }
+                            else if (noteData.cutDirection == NoteCutDirection.Up || noteData.cutDirection == NoteCutDirection.UpRight || noteData.cutDirection == NoteCutDirection.UpLeft)
+                            {
+                                tailBeforeJumpLineLayer = NoteLineLayer.Top;
+                                isTailBeforeJumpLineLayer = true;
+                            }
+                            else
+                            {
+                                isTailBeforeJumpLineLayer = false;
+                            }
+                            if (noteData.cutDirection == NoteCutDirection.Down)
+                            {
+                                if (noteData.lineIndex == 0)
+                                {
+                                    tailLineIndex = 1;
+                                }
+                                else if (noteData.lineIndex == 3)
+                                {
+                                    tailLineIndex = 2;
+                                }
+                            }
+                            else if (noteData.cutDirection == NoteCutDirection.DownRight)
+                            {
+                                if (noteData.lineIndex == 0)
+                                {
+                                    tailLineIndex = 2;
+                                }
+                            }
+                            else if (noteData.cutDirection == NoteCutDirection.DownLeft)
+                            {
+                                if (noteData.lineIndex == 3)
+                                {
+                                    tailLineIndex = 1;
+                                }
+                            }
+                            if (noteData.cutDirection == NoteCutDirection.Up)
+                            {
+                                if (noteData.lineIndex == 0)
+                                {
+                                    tailLineIndex = 0;
+                                }
+                                else if (noteData.lineIndex == 3)
+                                {
+                                    tailLineIndex = 3;
+                                }
+                            }
+                            else if (noteData.cutDirection == NoteCutDirection.UpRight)
+                            {
+                                if (noteData.lineIndex == 0)
+                                {
+                                    tailLineIndex = 2;
+                                }
+                            }
+                            else if (noteData.cutDirection == NoteCutDirection.UpLeft)
+                            {
+                                if (noteData.lineIndex == 3)
+                                {
+                                    tailLineIndex = 1;
+                                }
+                            }
+
+                        }
+                        if (isTailBeforeJumpLineLayer && tailLineIndex != -1)
+                        {
+                            float tailtime = (noteData.timeToNextColorNote * 0.5f) / 2f;
+
+                            noteData.ChangeToBurstSliderHead();
+                            SliderData burstSlider = SliderData.CreateBurstSliderData(noteData.colorType, noteData.time, noteData.lineIndex, noteData.noteLineLayer, noteData.beforeJumpNoteLineLayer, noteData.cutDirection, noteData.time + tailtime, tailLineIndex, tailBeforeJumpLineLayer, tailBeforeJumpLineLayer, NoteCutDirection.Any, 5, 0f);
+                            copy.AddBeatmapObjectData(burstSlider);
+                        }
+
+                    }
                     if (PluginConfig.Instance.noArrow)
                     {
                         noteData.SetNoteToAnyCutDirection();

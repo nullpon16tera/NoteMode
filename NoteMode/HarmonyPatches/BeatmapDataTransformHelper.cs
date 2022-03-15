@@ -287,11 +287,64 @@ namespace NoteMode.HarmonyPatches
                         }
 
                     }*/
+
+                    var noteDataItems = beatmapObjectDataItems.Where(x => x is NoteData).Select(x => x as NoteData).ToArray();
+                    int matchCount = 0;
+                    NoteData noteData2 = null;
+                    foreach (NoteData noteData1 in noteDataItems)
+                    {
+                        if (noteData.time == noteData1.time)
+                        {
+                            matchCount++;
+                        }
+                        if ((noteData.time + noteData.timeToNextColorNote) == noteData1.time)
+                        {
+                            noteData2 = noteData1;
+                        }
+                    }
                     
                     if (noteData.cutDirection != NoteCutDirection.None)
                     {
+                        if (noteData2 != null)
+                        {
+                            if (noteData.colorType == noteData2.colorType)
+                            {
+                                SliderMidAnchorMode sliderMidAnchorMode = SliderMidAnchorMode.Straight;
+                                if (noteData.noteLineLayer == NoteLineLayer.Base && noteData2.noteLineLayer == NoteLineLayer.Base)
+                                {
+                                    sliderMidAnchorMode = SliderMidAnchorMode.Clockwise;
+                                }
+                                else if (noteData.noteLineLayer == NoteLineLayer.Upper && noteData2.noteLineLayer == NoteLineLayer.Upper)
+                                {
+                                    sliderMidAnchorMode = SliderMidAnchorMode.Clockwise;
+                                }
+                                else if (noteData.noteLineLayer == NoteLineLayer.Top && noteData2.noteLineLayer == NoteLineLayer.Top)
+                                {
+                                    sliderMidAnchorMode = SliderMidAnchorMode.Clockwise;
+                                }
+                                SliderData sliderData1 = SliderData.CreateSliderData(
+                                    noteData.colorType,
+                                    noteData.time,
+                                    noteData.lineIndex,
+                                    noteData.noteLineLayer,
+                                    noteData.beforeJumpNoteLineLayer,
+                                    0.5f,
+                                    noteData.cutDirection,
+                                    noteData.time + noteData.timeToNextColorNote,
+                                    noteData2.lineIndex,
+                                    noteData2.noteLineLayer,
+                                    noteData2.beforeJumpNoteLineLayer,
+                                    1f,
+                                    noteData2.cutDirection,
+                                    sliderMidAnchorMode
+                                );
+                                copy.AddBeatmapObjectData(sliderData1);
+                            }
+                        }
+
                         NoteLineLayer tailBeforeJumpLineLayer = NoteLineLayer.Upper;
                         int tailLineIndex = -1;
+                        int tailLineCount = 5;
                         bool isTailBeforeJumpLineLayer = false;
                         if (noteData.noteLineLayer == NoteLineLayer.Upper)
                         {
@@ -311,19 +364,21 @@ namespace NoteMode.HarmonyPatches
                             }
                             if (noteData.cutDirection == NoteCutDirection.Down)
                             {
+                                tailLineCount = 3;
                                 if (noteData.lineIndex == 0)
                                 {
-                                    tailLineIndex = 1;
+                                    tailLineIndex = 0;
                                 }
                                 else if (noteData.lineIndex == 3)
                                 {
-                                    tailLineIndex = 2;
+                                    tailLineIndex = 3;
                                 }
                             }
                             else if (noteData.cutDirection == NoteCutDirection.DownRight)
                             {
                                 if (noteData.lineIndex == 0)
                                 {
+                                    tailLineCount = 8;
                                     tailLineIndex = 2;
                                 }
                             }
@@ -331,11 +386,13 @@ namespace NoteMode.HarmonyPatches
                             {
                                 if (noteData.lineIndex == 3)
                                 {
+                                    tailLineCount = 8;
                                     tailLineIndex = 1;
                                 }
                             }
                             if (noteData.cutDirection == NoteCutDirection.Up)
                             {
+                                tailLineCount = 3;
                                 if (noteData.lineIndex == 0)
                                 {
                                     tailLineIndex = 0;
@@ -349,6 +406,7 @@ namespace NoteMode.HarmonyPatches
                             {
                                 if (noteData.lineIndex == 0)
                                 {
+                                    tailLineCount = 8;
                                     tailLineIndex = 2;
                                 }
                             }
@@ -356,18 +414,38 @@ namespace NoteMode.HarmonyPatches
                             {
                                 if (noteData.lineIndex == 3)
                                 {
+                                    tailLineCount = 8;
                                     tailLineIndex = 1;
                                 }
                             }
 
                         }
+                        
+                        Logger.log.Debug($"time: {noteData.time}, nextTime: {noteData.timeToNextColorNote}, prevTime: {noteData.timeToPrevColorNote}");
                         if (isTailBeforeJumpLineLayer && tailLineIndex != -1)
                         {
                             float tailtime = (noteData.timeToNextColorNote * 0.5f) / 2f;
+                            if (matchCount < 2)
+                            {
 
-                            noteData.ChangeToBurstSliderHead();
-                            SliderData burstSlider = SliderData.CreateBurstSliderData(noteData.colorType, noteData.time, noteData.lineIndex, noteData.noteLineLayer, noteData.beforeJumpNoteLineLayer, noteData.cutDirection, noteData.time + tailtime, tailLineIndex, tailBeforeJumpLineLayer, tailBeforeJumpLineLayer, NoteCutDirection.Any, 5, 0f);
-                            copy.AddBeatmapObjectData(burstSlider);
+                                noteData.ChangeToBurstSliderHead();
+                                SliderData burstSlider = SliderData.CreateBurstSliderData(
+                                    noteData.colorType,
+                                    noteData.time,
+                                    noteData.lineIndex,
+                                    noteData.noteLineLayer,
+                                    noteData.beforeJumpNoteLineLayer,
+                                    noteData.cutDirection,
+                                    noteData.time + tailtime,
+                                    tailLineIndex,
+                                    tailBeforeJumpLineLayer,
+                                    tailBeforeJumpLineLayer,
+                                    NoteCutDirection.Any,
+                                    tailLineCount,
+                                    1f
+                                );
+                                copy.AddBeatmapObjectData(burstSlider);
+                            }
                         }
 
                     }

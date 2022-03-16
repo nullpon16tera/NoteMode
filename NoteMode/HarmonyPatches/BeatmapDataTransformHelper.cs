@@ -288,7 +288,7 @@ namespace NoteMode.HarmonyPatches
 
                     }*/
 
-                    var noteDataItems = beatmapObjectDataItems.Where(x => x is NoteData).Select(x => x as NoteData).ToArray();
+                    /*var noteDataItems = beatmapObjectDataItems.Where(x => x is NoteData).Select(x => x as NoteData).ToArray();
                     int matchCount = 0;
                     NoteData noteData2 = null;
                     foreach (NoteData noteData1 in noteDataItems)
@@ -301,9 +301,9 @@ namespace NoteMode.HarmonyPatches
                         {
                             noteData2 = noteData1;
                         }
-                    }
+                    }*/
                     
-                    if (noteData.cutDirection != NoteCutDirection.None)
+                    /*if (noteData.cutDirection != NoteCutDirection.None)
                     {
                         if (noteData2 != null)
                         {
@@ -421,7 +421,7 @@ namespace NoteMode.HarmonyPatches
 
                         }
                         
-                        Logger.log.Debug($"time: {noteData.time}, nextTime: {noteData.timeToNextColorNote}, prevTime: {noteData.timeToPrevColorNote}");
+                        //Logger.log.Debug($"time: {noteData.time}, nextTime: {noteData.timeToNextColorNote}, prevTime: {noteData.timeToPrevColorNote}");
                         if (isTailBeforeJumpLineLayer && tailLineIndex != -1)
                         {
                             float tailtime = (noteData.timeToNextColorNote * 0.5f) / 2f;
@@ -448,7 +448,8 @@ namespace NoteMode.HarmonyPatches
                             }
                         }
 
-                    }
+                    }*/
+
                     if (PluginConfig.Instance.noArrow)
                     {
                         noteData.SetNoteToAnyCutDirection();

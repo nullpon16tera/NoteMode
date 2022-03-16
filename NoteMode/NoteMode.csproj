@@ -55,6 +55,9 @@
     <Reference Include="GameplayCore">
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Beat Saber\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
     </Reference>
+    <Reference Include="MockCore">
+      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Beat Saber\Beat Saber_Data\Managed\MockCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -86,6 +89,9 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Beat Saber\Beat Saber_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -111,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioSpectrums\AudioSpectrum.cs" />
     <Compile Include="HarmonyPatches\BeatmapDataTransformHelper.cs" />
     <Compile Include="HarmonyPatches\BeatmapObjectManager.cs" />
     <Compile Include="HarmonyPatches\ColorManager.cs" />
@@ -150,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="UI\allBurstSliderHead.png" />
     <EmbeddedResource Include="UI\randomizeCutDirection.png" />
     <EmbeddedResource Include="UI\restrictedRandomizeCutDirection.png" />
     <EmbeddedResource Include="UI\reverseArrow.png" />

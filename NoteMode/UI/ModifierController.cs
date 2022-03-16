@@ -151,6 +151,21 @@ namespace NoteMode.UI
             }
         }
 
+        [UIValue("allBurstSliderHead")]
+        public bool allBurstSliderHead
+        {
+            get => conf.allBurstSliderHead;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                }
+                conf.allBurstSliderHead = value;
+                updateUI();
+            }
+        }
+
         [UIValue("noNotesBomb")]
         public bool noNotesBomb
         {

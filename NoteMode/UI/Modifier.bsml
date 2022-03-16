@@ -9,6 +9,7 @@
 			</vertical>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noArrow' apply-on-change='true' source='NoteMode.UI.NoArrow.png' text='No Arrows' hover-hint='[Disable Score] Change All notes no arrow.'></modifier>
+				<modifier value='allBurstSliderHead' apply-on-change='true' source='NoteMode.UI.allBurstSliderHead.png' text='All Notes SliderHead' hover-hint='Change All notes slider head.'></modifier>
 			</vertical>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.UI.noNotes.png' text='Remove Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>

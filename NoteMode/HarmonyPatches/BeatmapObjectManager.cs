@@ -4,10 +4,9 @@ using System.Reflection;
 
 namespace NoteMode.HarmonyPatches
 {
-    [HarmonyPatch(typeof(BeatmapObjectManager), "SpawnBasicNote")]
-    public class BeatmapObjectManagerSpawnBasicNote
+    [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessNoteData")]
+    public class BasicBeatmapObjectManagerProcessNoteData
     {
-
         static bool Prefix(ref NoteData noteData)
         {
             if ((noteData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
@@ -23,16 +22,48 @@ namespace NoteMode.HarmonyPatches
             {
                 return false;
             }
-
             return true;
         }
     }
 
-    [HarmonyPatch(typeof(BeatmapObjectManager), "SpawnBombNote")]
-    public class BeatmapOjbectManagerSpawnBombNote
+    /**
+     * Wall
+     */
+    [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessObstacleData")]
+    public class BasicBeatmapOjbectManagerProcessObstacleData
     {
-        static bool Prefix(ref NoteData noteData)
+        static void Prefix(ref ObstacleData obstacleData, ref BeatmapObjectSpawnMovementData.ObstacleSpawnData obstacleSpawnData)
         {
+            if (PluginConfig.Instance.noNotesBomb)
+            {
+                
+            }
+        }
+    }
+
+    /**
+    * Arc or Chain Notes
+    */
+    [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessSliderData")]
+    public class BasicBeatmapOjbectManagerProcessSliderData
+    {
+        static bool Prefix(ref SliderData sliderData, ref BeatmapObjectSpawnMovementData.SliderSpawnData sliderSpawnData, float rotation)
+        {
+
+            if (sliderData.sliderType == SliderData.Type.Burst)
+            {
+                //return false;
+            }
+
+            if ((sliderData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
+            {
+                return false;
+            }
+            else if ((sliderData.colorType == ColorType.ColorB) && PluginConfig.Instance.noBlue)
+            {
+                return false;
+            }
+
             if (PluginConfig.Instance.noNotesBomb)
             {
                 return false;

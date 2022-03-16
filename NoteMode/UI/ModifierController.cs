@@ -166,6 +166,21 @@ namespace NoteMode.UI
             }
         }
 
+        [UIValue("arcNotes")]
+        public bool arcNotes
+        {
+            get => conf.arcNotes;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                }
+                conf.arcNotes = value;
+                updateUI();
+            }
+        }
+
         [UIValue("noNotesBomb")]
         public bool noNotesBomb
         {

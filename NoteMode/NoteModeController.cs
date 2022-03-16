@@ -76,7 +76,8 @@ namespace NoteMode
                     PluginConfig.Instance.noNotesBomb ||
                     PluginConfig.Instance.reverseArrows ||
                     PluginConfig.Instance.randomizeArrows ||
-                    PluginConfig.Instance.restrictedrandomizeArrows
+                    PluginConfig.Instance.restrictedrandomizeArrows ||
+                    PluginConfig.Instance.allBurstSliderHead
                 )
                 {
                     ScoreSubmission.DisableSubmission(Plugin.Name);

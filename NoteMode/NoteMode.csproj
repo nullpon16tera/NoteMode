@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="UI\changeChainNotes.png" />
     <EmbeddedResource Include="UI\arcMode.png" />
     <EmbeddedResource Include="UI\allBurstSliderHead.png" />
     <EmbeddedResource Include="UI\randomizeCutDirection.png" />

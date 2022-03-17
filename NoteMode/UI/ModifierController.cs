@@ -181,6 +181,21 @@ namespace NoteMode.UI
             }
         }
 
+        [UIValue("changeChainNotes")]
+        public bool changeChainNotes
+        {
+            get => conf.changeChainNotes;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                }
+                conf.changeChainNotes = value;
+                updateUI();
+            }
+        }
+
         [UIValue("noNotesBomb")]
         public bool noNotesBomb
         {

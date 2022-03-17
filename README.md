@@ -2,6 +2,10 @@
 
 AlternativePlayとNalulunaModifierを組み合わせた使い方に、当たり判定がおかしくなったりするのを解消する
 
+### BS 1.19.x　までの機能
+
+NoteMode 0.0.9までは下記内容のものが利用できます。
+
 - Remove Red: 赤ノーツ削除（NalulunaModifierから移植）AlternativePlayで利用できなかったため
 - Remove Blue: 青ノーツ削除（同上）
 - One Color Red: 全てのノーツを赤にする（AlternativePlayのOneColorとNalulunaModifierの4saberモードを組み合わせたときに当たり判定が無くなるため）
@@ -12,6 +16,13 @@ AlternativePlayとNalulunaModifierを組み合わせた使い方に、当たり�
 - Randomize Arrows（ノーツの向きがランダムに変更されます）
 - Restricted Randomize Arrows（制限付きでノーツの向きがランダムに変更されます）
 - Note Scale: ノーツサイズを変更する（当たり判定も変更されます）
+
+### BS 1.20.0　に追加された機能
+
+NoteMode 0.1.2以降は下記内容のものが追加されています。
+
+- All Notes BurstSliderHead: 全てのノーツをチェインノーツの頭部分のみにします
+- Add Arc: 切るノーツの次のノーツが同じ色のときにArcが追加されます
 
 Randomize Arrows、Restricted Randomize Arrowsの機能は、[ふぁずぱい](https://twitter.com/FaZ_Pi)さんによって作成されました。
 

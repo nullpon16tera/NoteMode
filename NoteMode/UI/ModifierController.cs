@@ -166,17 +166,17 @@ namespace NoteMode.UI
             }
         }
 
-        [UIValue("arcNotes")]
-        public bool arcNotes
+        [UIValue("arcMode")]
+        public bool arcMode
         {
-            get => conf.arcNotes;
+            get => conf.arcMode;
             set
             {
                 if (value)
                 {
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
                 }
-                conf.arcNotes = value;
+                conf.arcMode = value;
                 updateUI();
             }
         }

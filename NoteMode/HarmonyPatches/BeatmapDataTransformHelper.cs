@@ -292,7 +292,7 @@ namespace NoteMode.HarmonyPatches
                         }
 
                     }*/
-                    if (PluginConfig.Instance.arcNotes)
+                    if (PluginConfig.Instance.arcMode)
                     {
 
                         var noteDataItems = beatmapObjectDataItems.Where(x => x is NoteData).Select(x => x as NoteData).ToArray();
@@ -304,9 +304,10 @@ namespace NoteMode.HarmonyPatches
                             {
                                 matchCount++;
                             }
-                            if ((noteData.time + noteData.timeToNextColorNote) == noteData1.time)
+                            if ((noteData.time + noteData.timeToNextColorNote) == noteData1.time && noteData.colorType == noteData1.colorType)
                             {
                                 noteData2 = noteData1;
+                                break;
                             }
                         }
 
@@ -325,7 +326,7 @@ namespace NoteMode.HarmonyPatches
                                         }
                                         else if (noteData.noteLineLayer == NoteLineLayer.Upper && noteData2.noteLineLayer == NoteLineLayer.Upper)
                                         {
-                                            sliderMidAnchorMode = SliderMidAnchorMode.Clockwise;
+                                            sliderMidAnchorMode = SliderMidAnchorMode.CounterClockwise;
                                         }
                                         else if (noteData.noteLineLayer == NoteLineLayer.Top && noteData2.noteLineLayer == NoteLineLayer.Top)
                                         {

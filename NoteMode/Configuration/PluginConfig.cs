@@ -18,7 +18,7 @@ namespace NoteMode.Configuration
 
         public virtual bool allBurstSliderHead { get; set; } = false;
 
-        public virtual bool arcNotes { get; set; } = false;
+        public virtual bool arcMode { get; set; } = false;
         public virtual bool noNotesBomb { get; set; } = false;
         public virtual bool reverseArrows { get; set; } = false;
         public virtual bool randomizeArrows { get; set; } = false;

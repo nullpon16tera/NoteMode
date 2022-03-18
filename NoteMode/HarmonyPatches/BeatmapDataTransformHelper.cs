@@ -289,10 +289,21 @@ namespace NoteMode.HarmonyPatches
                             {
                                 matchCount++;
                             }
-                            if ((noteData.time + noteData.timeToNextColorNote) == noteData1.time && noteData.colorType == noteData1.colorType)
+                            if (PluginConfig.Instance.oneColorRed || PluginConfig.Instance.oneColorBlue)
                             {
-                                noteData2 = noteData1;
-                                break;
+                                if ((noteData.time + noteData.timeToNextColorNote) == noteData1.time)
+                                {
+                                    noteData2 = noteData1;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if ((noteData.time + noteData.timeToNextColorNote) == noteData1.time && noteData.colorType == noteData1.colorType)
+                                {
+                                    noteData2 = noteData1;
+                                    break;
+                                }
                             }
                         }
 
@@ -300,34 +311,44 @@ namespace NoteMode.HarmonyPatches
                         {
                             if (PluginConfig.Instance.arcMode && noteData2 != null)
                             {
-                                if (noteData.colorType == noteData2.colorType)
+                                SliderMidAnchorMode sliderMidAnchorMode = SliderMidAnchorMode.Straight;
+                                if (noteData.cutDirection != NoteCutDirection.Any)
                                 {
-                                    SliderMidAnchorMode sliderMidAnchorMode = SliderMidAnchorMode.Straight;
-                                    if (noteData.cutDirection != NoteCutDirection.Any)
+                                    if (noteData.noteLineLayer == NoteLineLayer.Base && noteData2.noteLineLayer == NoteLineLayer.Base)
                                     {
-                                        if (noteData.noteLineLayer == NoteLineLayer.Base && noteData2.noteLineLayer == NoteLineLayer.Base)
-                                        {
-                                            sliderMidAnchorMode = SliderMidAnchorMode.Straight;
-                                        }
-                                        else if (noteData.noteLineLayer == NoteLineLayer.Upper && noteData2.noteLineLayer == NoteLineLayer.Upper)
-                                        {
-                                            sliderMidAnchorMode = SliderMidAnchorMode.CounterClockwise;
-                                        }
-                                        else if (noteData.noteLineLayer == NoteLineLayer.Top && noteData2.noteLineLayer == NoteLineLayer.Top)
-                                        {
-                                            sliderMidAnchorMode = SliderMidAnchorMode.Clockwise;
-                                        }
+                                        sliderMidAnchorMode = SliderMidAnchorMode.Straight;
+                                    }
+                                    else if (noteData.noteLineLayer == NoteLineLayer.Upper && noteData2.noteLineLayer == NoteLineLayer.Upper)
+                                    {
+                                        sliderMidAnchorMode = SliderMidAnchorMode.CounterClockwise;
+                                    }
+                                    else if (noteData.noteLineLayer == NoteLineLayer.Top && noteData2.noteLineLayer == NoteLineLayer.Top)
+                                    {
+                                        sliderMidAnchorMode = SliderMidAnchorMode.Clockwise;
+                                    }
+                                }
+
+                                NoteCutDirection noteCutDirection = noteData.cutDirection;
+                                NoteCutDirection nextNoteCutDirection = noteData2.cutDirection;
+                                if (PluginConfig.Instance.noArrow)
+                                {
+                                    noteCutDirection = NoteCutDirection.Any;
+                                    nextNoteCutDirection = NoteCutDirection.Any;
+                                }
+                                if ((PluginConfig.Instance.oneColorRed || PluginConfig.Instance.oneColorBlue) && noteData.colorType != ColorType.None)
+                                {
+                                    ColorType colorType = noteData.colorType;
+                                    if (PluginConfig.Instance.oneColorRed)
+                                    {
+                                        colorType = ColorType.ColorA;
+                                    }
+                                    else if (PluginConfig.Instance.oneColorBlue)
+                                    {
+                                        colorType = ColorType.ColorB;
                                     }
 
-                                    NoteCutDirection noteCutDirection = noteData.cutDirection;
-                                    NoteCutDirection nextNoteCutDirection = noteData2.cutDirection;
-                                    if (PluginConfig.Instance.noArrow)
-                                    {
-                                        noteCutDirection = NoteCutDirection.Any;
-                                        nextNoteCutDirection = NoteCutDirection.Any;
-                                    }
                                     SliderData sliderData1 = SliderData.CreateSliderData(
-                                        noteData.colorType,
+                                        colorType,
                                         noteData.time,
                                         noteData.lineIndex,
                                         noteData.noteLineLayer,
@@ -343,6 +364,29 @@ namespace NoteMode.HarmonyPatches
                                         sliderMidAnchorMode
                                     );
                                     copy.AddBeatmapObjectData(sliderData1);
+                                }
+                                else
+                                {
+                                    if (noteData.colorType == noteData2.colorType)
+                                    {
+                                        SliderData sliderData1 = SliderData.CreateSliderData(
+                                            noteData.colorType,
+                                            noteData.time,
+                                            noteData.lineIndex,
+                                            noteData.noteLineLayer,
+                                            noteData.beforeJumpNoteLineLayer,
+                                            0.5f,
+                                            noteCutDirection,
+                                            noteData.time + noteData.timeToNextColorNote,
+                                            noteData2.lineIndex,
+                                            noteData2.noteLineLayer,
+                                            noteData2.noteLineLayer,
+                                            1f,
+                                            nextNoteCutDirection,
+                                            sliderMidAnchorMode
+                                        );
+                                        copy.AddBeatmapObjectData(sliderData1);
+                                    }
                                 }
                             }
 

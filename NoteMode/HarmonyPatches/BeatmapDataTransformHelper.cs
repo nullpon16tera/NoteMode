@@ -303,15 +303,15 @@ namespace NoteMode.HarmonyPatches
                         noteData.lineIndex,
                         noteData.noteLineLayer,
                         noteData.beforeJumpNoteLineLayer,
-                        0.5f,
-                        BeatmapDataTransformHelperCreateTransformedBeatmapData.GetNoteCutDirection((NoteCutDirection)i),
+                        noteData.timeToNextColorNote,
+                        noteData.cutDirection,
                         noteData.time + noteData.timeToNextColorNote,
                         noteData2.lineIndex,
                         noteData2.noteLineLayer,
                         noteData2.noteLineLayer,
                         1f,
                         BeatmapDataTransformHelperCreateTransformedBeatmapData.GetNoteCutDirection((NoteCutDirection)i),
-                        SliderMidAnchorMode.Clockwise
+                        SliderMidAnchorMode.Straight
                     );
                     copy.AddBeatmapObjectData(sliderDataTest);
                 }

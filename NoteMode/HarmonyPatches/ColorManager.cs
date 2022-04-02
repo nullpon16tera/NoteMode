@@ -8,16 +8,13 @@ namespace NoteMode.HarmonyPatches
     {
         static void Prefix(ref SaberType type)
         {
-            if (NoteModeController.instance.inGame == true)
+            if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
             {
-                if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
-                {
-                    type = SaberType.SaberA;
-                }
-                else if ((PluginConfig.Instance.noRed || PluginConfig.Instance.oneColorBlue) && type == SaberType.SaberA)
-                {
-                    type = SaberType.SaberB;
-                }
+                type = SaberType.SaberA;
+            }
+            else if ((PluginConfig.Instance.noRed || PluginConfig.Instance.oneColorBlue) && type == SaberType.SaberA)
+            {
+                type = SaberType.SaberB;
             }
         }
 
@@ -26,16 +23,13 @@ namespace NoteMode.HarmonyPatches
         {
             static void Prefix(ref SaberType type)
             {
-                if (NoteModeController.instance.inGame == true)
+                if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
                 {
-                    if ((PluginConfig.Instance.noBlue || PluginConfig.Instance.oneColorRed) && type == SaberType.SaberB)
-                    {
-                        type = SaberType.SaberA;
-                    }
-                    else if ((PluginConfig.Instance.noRed || PluginConfig.Instance.oneColorBlue) && type == SaberType.SaberA)
-                    {
-                        type = SaberType.SaberB;
-                    }
+                    type = SaberType.SaberA;
+                }
+                else if ((PluginConfig.Instance.noRed || PluginConfig.Instance.oneColorBlue) && type == SaberType.SaberA)
+                {
+                    type = SaberType.SaberB;
                 }
             }
         }

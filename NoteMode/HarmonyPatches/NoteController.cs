@@ -40,36 +40,33 @@ namespace NoteMode.HarmonyPatches
 
         static void Postfix(ref NoteData noteData, Transform ____noteTransform)
         {
-            if (NoteModeController.instance.inGame == true)
+            if (PluginConfig.Instance.isNotesScale && PluginConfig.Instance.notesScale != 1f)
             {
-                if (PluginConfig.Instance.isNotesScale && PluginConfig.Instance.notesScale != 1f)
+                float getScale = PluginConfig.Instance.notesScale;
+                float x = NoteControllerInit.ScaleLineIndex(noteData, getScale);
+                float y = 0f;
+
+                // Base Line (Bottom)
+                if (noteData.noteLineLayer == NoteLineLayer.Base)
                 {
-                    float getScale = PluginConfig.Instance.notesScale;
-                    float x = NoteControllerInit.ScaleLineIndex(noteData, getScale);
-                    float y = 0f;
 
-                    // Base Line (Bottom)
-                    if (noteData.noteLineLayer == NoteLineLayer.Base)
-                    {
-
-                    }
-
-                    // Upper Line (Middle)
-                    if (noteData.noteLineLayer == NoteLineLayer.Upper)
-                    {
-                        //y = -((1f - getScale) / 2);
-                        y = -(((1f - getScale) * getScale) / 2 + ((1f - getScale) * 0.01f));
-                    }
-
-                    // Top Line (Top)
-                    if (noteData.noteLineLayer == NoteLineLayer.Top)
-                    {
-                        y = -((1f - getScale) * getScale + ((1f - getScale) * 0.01f));
-                    }
-
-                    ____noteTransform.gameObject.transform.localScale = Vector3.one * getScale;
-                    ____noteTransform.gameObject.transform.localPosition = new Vector3(x, y, -(1f - getScale));
                 }
+
+                // Upper Line (Middle)
+                if (noteData.noteLineLayer == NoteLineLayer.Upper)
+                {
+                    //y = -((1f - getScale) / 2);
+                    y = -(((1f - getScale) * getScale) / 2 + ((1f - getScale) * 0.01f));
+                }
+
+                // Top Line (Top)
+                if (noteData.noteLineLayer == NoteLineLayer.Top)
+                {
+                    y = -((1f - getScale) * getScale + ((1f - getScale) * 0.01f));
+                }
+
+                ____noteTransform.gameObject.transform.localScale = Vector3.one * getScale;
+                ____noteTransform.gameObject.transform.localPosition = new Vector3(x, y, -(1f - getScale));
             }
         }
     }

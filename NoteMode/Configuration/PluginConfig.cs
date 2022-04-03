@@ -1,7 +1,7 @@
-﻿using IPA.Config.Stores;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using IPA.Config.Stores;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace NoteMode.Configuration
@@ -19,12 +19,14 @@ namespace NoteMode.Configuration
         public virtual bool allBurstSliderHead { get; set; } = false;
 
         public virtual bool arcMode { get; set; } = false;
+        public virtual bool restrictedArcMode { get; set; } = false;
 
         public virtual bool changeChainNotes { get; set; } = false;
         public virtual bool noNotesBomb { get; set; } = false;
         public virtual bool reverseArrows { get; set; } = false;
         public virtual bool randomizeArrows { get; set; } = false;
         public virtual bool restrictedrandomizeArrows { get; set; } = false;
+        public virtual bool rainbowColor { get; set; } = false;
         public virtual float notesScale { get; set; } = 1f;
         public virtual bool isNotesScale { get; set; } = false;
 

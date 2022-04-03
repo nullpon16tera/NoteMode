@@ -9,11 +9,11 @@ namespace NoteMode.HarmonyPatches
     {
         static bool Prefix(ref NoteData noteData)
         {
-            if ((noteData.colorType == ColorType.ColorA) && PluginConfig.Instance.noRed)
+            if (PluginConfig.Instance.noRed && (noteData.colorType == ColorType.ColorA))
             {
                 return false;
             }
-            else if ((noteData.colorType == ColorType.ColorB) && PluginConfig.Instance.noBlue)
+            else if (PluginConfig.Instance.noBlue && (noteData.colorType == ColorType.ColorB))
             {
                 return false;
             }

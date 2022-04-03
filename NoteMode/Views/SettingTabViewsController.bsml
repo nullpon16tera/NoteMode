@@ -1,15 +1,16 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-	<vertical pad-top='5'>
-		<horizontal child-expand-width='false' spacing='4'>
+	<vertical pad-top='2'>
+		<horizontal child-expand-width='false' spacing='2'>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
+				<modifier value='noArrow' apply-on-change='true' source='NoteMode.Resource.NoArrow.png' text='No Arrows' hover-hint='[Disable Score] Change All notes no arrow.'></modifier>
 				<modifier value='noRed' apply-on-change='true' source='NoteMode.Resource.noRed.png' text='Remove Red' hover-hint='[Disable Score] Remove all red notes. Hide a left saber.'></modifier>
 				<modifier value='noBlue' apply-on-change='true' source='NoteMode.Resource.noBlue.png' text='Remove Blue' hover-hint='[Disable Score] Remove all blue notes. Hide a right saber.'></modifier>
 				<modifier value='oneColorRed' apply-on-change='true' source='NoteMode.Resource.OneColorRed.png' text='One Color Red' hover-hint='[Disable Score] Change All blue notes to red.'></modifier>
 				<modifier value='oneColorBlue' apply-on-change='true' source='NoteMode.Resource.OneColorBlue.png' text='One Color Blue' hover-hint='[Disable Score] Change All red notes to blue.'></modifier>
 			</vertical>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
-				<modifier value='noArrow' apply-on-change='true' source='NoteMode.Resource.NoArrow.png' text='No Arrows' hover-hint='[Disable Score] Change All notes no arrow.'></modifier>
-				<modifier value='arcMode' apply-on-change='true' source='NoteMode.Resource.arcMode.png' text='Add Arc' hover-hint='Add arc for same color notes.'></modifier>
+				<modifier value='arcMode' apply-on-change='true' source='NoteMode.Resource.arcMode.png' text='All Arc Mode' hover-hint='[Disable Score] Add arc for all notes.'></modifier>
+				<modifier value='restrictedArcMode' apply-on-change='true' source='NoteMode.Resource.arcMode.png' text='Restricted Arc Mode' hover-hint='[Disable Score] Add arc for same color notes.'></modifier>
 				<modifier value='allBurstSliderHead' apply-on-change='true' source='NoteMode.Resource.allBurstSliderHead.png' text='All Notes BurstSliderHead' hover-hint='[Disable Score] Change All notes burst slider head.'></modifier>
 				<modifier value='changeChainNotes' apply-on-change='true' source='NoteMode.Resource.changeChainNotes.png' text='Change Chain Notes(Beta)' hover-hint='[Disable Score] In the middle of both sides, change to chain notes for down and up.'></modifier>
 			</vertical>
@@ -18,9 +19,10 @@
 				<modifier value='reverseArrows' apply-on-change='true' source='NoteMode.Resource.reverseArrow.png' text='Reverse Arrows' hover-hint='[Disable Score] Reverse all notes arrow.'></modifier>
 				<modifier value='randomizeArrows' apply-on-change='true' source='NoteMode.Resource.randomizeCutDirection.png' text='Randomize Arrows' hover-hint='[Disable Score] Randomize all notes arrow.'></modifier>
 				<modifier value='restrictedrandomizeArrows' apply-on-change='true' source='NoteMode.Resource.restrictedRandomizeCutDirection.png' text='                           Restricted Randomize Arrows' hover-hint='[Disable Score] Randomize all notes arrow.'></modifier>
+				<modifier value='rainbowColor' apply-on-change='true' source='NoteMode.Resource.RainbowColor.png' text='Rainbow Color' hover-hint='rainbow color.'></modifier>
 			</vertical>
 		</horizontal>
-		<horizontal pad-top='5'>
+		<horizontal pad-top='4'>
 			<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='70'>
 				<bool-setting value='isNotesScale' apply-on-change='true' text='Notes Scale Enable' hover-hint='Enable notes scale change'></bool-setting>
 				<horizontal>

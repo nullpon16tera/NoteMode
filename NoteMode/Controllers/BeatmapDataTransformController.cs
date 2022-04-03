@@ -19,54 +19,51 @@ namespace NoteMode.Controllers
         private PluginConfig conf = PluginConfig.Instance;
 
         [Inject]
-        public void Constractor(IReadonlyBeatmapData beatmapData)
+        public void Constractor(IAudioTimeSource audioSource, IReadonlyBeatmapData beatmapData, ColorScheme scheme)
         {
+            this._source = audioSource;
             this._beatmapData = beatmapData;
+            this._colorScheme = scheme;
         }
 
+        private IAudioTimeSource _source;
         private IReadonlyBeatmapData _beatmapData;
-        private PropertyInfo noteColorTypeProperty;
-        private PropertyInfo sliderColorTypeProperty;
-        private PropertyInfo gameplayTypeProperty;
+        private ColorScheme _colorScheme;
+        private DateTime _lastSendTime;
+        private bool enable = false;
 
         private void Awake()
         {
+            ColorManagerColorForTypePatch.LeftColor = this._colorScheme.saberAColor;
+            ColorManagerColorForTypePatch.RightColor = this._colorScheme.saberBColor;
+
             if (this._beatmapData == null)
             {
                 return;
             }
-            bool confCheck = (
+            this.enable = (
                 conf.noRed || conf.noBlue || conf.oneColorRed || conf.oneColorBlue || conf.noArrow || conf.noNotesBomb ||
                 conf.reverseArrows || conf.randomizeArrows || conf.restrictedrandomizeArrows ||
-                conf.arcMode || conf.allBurstSliderHead || conf.changeChainNotes
+                conf.arcMode || conf.allBurstSliderHead || conf.changeChainNotes || conf.rainbowColor
             );
             
-            if (!confCheck)
+            if (!this.enable)
             {
                 return;
             }
-            
 
-            this.noteColorTypeProperty = typeof(NoteData).GetProperty("colorType");
-            this.sliderColorTypeProperty = typeof(SliderData).GetProperty("colorType");
-            this.gameplayTypeProperty = typeof(NoteData).GetProperty("gameplayType");
+            this._lastSendTime = DateTime.Now;
 
             var beatmapObjectDataItems = this._beatmapData.allBeatmapDataItems.Where(x => x is BeatmapObjectData).Select(x => x as BeatmapObjectData).ToArray();
 
             foreach (BeatmapObjectData beatmapObjectData in beatmapObjectDataItems)
             {
                 var noteData = beatmapObjectData as NoteData;
-                var sliderData = beatmapObjectData as SliderData;
                 if (noteData != null && noteData.cutDirection != NoteCutDirection.None)
                 {
                     if (conf.noArrow)
                     {
                         noteData.SetNoteToAnyCutDirection();
-                    }
-
-                    if (conf.allBurstSliderHead && (noteData.gameplayType == NoteData.GameplayType.Normal))
-                    {
-                        noteData.ChangeToBurstSliderHead();
                     }
 
                     if (conf.noRed && (noteData.colorType == ColorType.ColorA))
@@ -76,15 +73,6 @@ namespace NoteMode.Controllers
                     else if (conf.noBlue && (noteData.colorType == ColorType.ColorB))
                     {
                         noteData.ChangeNoteCutDirection(NoteCutDirection.None);
-                    }
-
-                    if (conf.oneColorBlue && (noteData.colorType == ColorType.ColorA))
-                    {
-                        this.SwitchNoteColorType(noteData);
-                    }
-                    else if (conf.oneColorRed && (noteData.colorType == ColorType.ColorB))
-                    {
-                        this.SwitchNoteColorType(noteData);
                     }
 
                     if (conf.reverseArrows)
@@ -101,63 +89,12 @@ namespace NoteMode.Controllers
                     {
                         noteData.ChangeNoteCutDirection(BeatmapUtil.RestrictedRandomizeNoteCutDirection(noteData));
                     }
-                }
 
-                if (sliderData != null && sliderData.headCutDirection != NoteCutDirection.None)
-                {
-                    if (conf.oneColorBlue && sliderData.colorType == ColorType.ColorA)
+                    if (conf.allBurstSliderHead && (noteData.gameplayType == NoteData.GameplayType.Normal))
                     {
-                        this.SwitchSliderColorType(sliderData);
-                    }
-                    else if (conf.oneColorRed && sliderData.colorType == ColorType.ColorB)
-                    {
-                        this.SwitchSliderColorType(sliderData);
+                        noteData.ChangeToBurstSliderHead();
                     }
                 }
-            }
-        }
-
-        private void SetNoteColorType(NoteData noteData, ColorType colorType)
-        {
-            this.noteColorTypeProperty.GetSetMethod(true).Invoke(noteData, new object[]
-            {
-                colorType
-            });
-        }
-
-        private void SetSliderColorType(SliderData sliderData, ColorType colorType)
-        {
-            this.sliderColorTypeProperty.GetSetMethod(true).Invoke(sliderData, new object[]
-            {
-                colorType
-            });
-        }
-
-        private void SwitchNoteColorType(NoteData noteData)
-        {
-            ColorType colorType = (ColorType)this.noteColorTypeProperty.GetValue(noteData);
-            if (colorType == ColorType.ColorA)
-            {
-                this.SetNoteColorType(noteData, ColorType.ColorB);
-                return;
-            }
-            if (colorType == ColorType.ColorB)
-            {
-                this.SetNoteColorType(noteData, ColorType.ColorA);
-            }
-        }
-
-        private void SwitchSliderColorType(SliderData sliderData)
-        {
-            ColorType colorType = (ColorType)this.sliderColorTypeProperty.GetValue(sliderData);
-            if (colorType == ColorType.ColorA)
-            {
-                this.SetSliderColorType(sliderData, ColorType.ColorB);
-                return;
-            }
-            if (colorType == ColorType.ColorB)
-            {
-                this.SetSliderColorType(sliderData, ColorType.ColorA);
             }
         }
 
@@ -168,7 +105,32 @@ namespace NoteMode.Controllers
 
         private void Update()
         {
+            if (!this.enable)
+            {
+                return;
+            }
+            if (this._source.songTime == 0)
+            {
+                this._lastSendTime = DateTime.Now;
+                return;
+            }
 
+            if (conf.oneColorRed)
+            {
+                ColorManagerColorForTypePatch.LeftColor = _colorScheme.saberAColor;
+                ColorManagerColorForTypePatch.RightColor = _colorScheme.saberAColor;
+            }
+            if (conf.oneColorBlue)
+            {
+                ColorManagerColorForTypePatch.LeftColor = _colorScheme.saberBColor;
+                ColorManagerColorForTypePatch.RightColor = _colorScheme.saberBColor;
+            }
+
+            if (conf.rainbowColor)
+            {
+                ColorManagerColorForTypePatch.LeftColor = Color.HSVToRGB(UnityEngine.Random.Range(0f, 1f), 1f, 1f);
+                ColorManagerColorForTypePatch.RightColor = Color.HSVToRGB(UnityEngine.Random.Range(0f, 1f), 1f, 1f);
+            }
         }
 
         /// <summary>

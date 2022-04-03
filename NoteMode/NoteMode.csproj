@@ -158,6 +158,7 @@
     <Compile Include="NoteModeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\BeatmapUtil.cs" />
+    <Compile Include="Utilities\ChainNotesUtil.cs" />
     <Compile Include="Utilities\ReflectionUtil.cs" />
     <Compile Include="Utilities\SliderUtil.cs" />
     <Compile Include="Views\SettingTabViewsController.cs" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="Resource\RainbowColor.png" />
     <EmbeddedResource Include="Resource\allBurstSliderHead.png" />
     <EmbeddedResource Include="Resource\arcMode.png" />
     <EmbeddedResource Include="Resource\changeChainNotes.png" />

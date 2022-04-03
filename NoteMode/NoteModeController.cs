@@ -25,6 +25,7 @@ namespace NoteMode
                 PluginConfig.Instance.randomizeArrows ||
                 PluginConfig.Instance.restrictedrandomizeArrows ||
                 PluginConfig.Instance.arcMode ||
+                PluginConfig.Instance.restrictedArcMode ||
                 PluginConfig.Instance.allBurstSliderHead ||
                 PluginConfig.Instance.changeChainNotes ||
                 PluginConfig.Instance.isNotesScale

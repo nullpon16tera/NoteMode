@@ -148,6 +148,7 @@ namespace NoteMode.Views
                     if (conf.reverseArrows) conf.reverseArrows = false;
                     if (conf.randomizeArrows) conf.randomizeArrows = false;
                     if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
+                    if (conf.changeChainNotes) conf.changeChainNotes = false;
                 }
                 conf.noArrow = value;
                 updateUI();
@@ -178,8 +179,25 @@ namespace NoteMode.Views
                 if (value)
                 {
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.restrictedArcMode) conf.restrictedArcMode = false;
                 }
                 conf.arcMode = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("restrictedArcMode")]
+        public bool restrictedArcMode
+        {
+            get => conf.restrictedArcMode;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.arcMode) conf.arcMode = false;
+                }
+                conf.restrictedArcMode = value;
                 updateUI();
             }
         }
@@ -193,6 +211,7 @@ namespace NoteMode.Views
                 if (value)
                 {
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.noArrow) conf.noArrow = false;
                 }
                 conf.changeChainNotes = value;
                 updateUI();
@@ -267,6 +286,17 @@ namespace NoteMode.Views
                     if (conf.randomizeArrows) conf.randomizeArrows = false;
                 }
                 conf.restrictedrandomizeArrows = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("rainbowColor")]
+        public bool rainbowColor
+        {
+            get => conf.rainbowColor;
+            set
+            {
+                conf.rainbowColor = value;
                 updateUI();
             }
         }

@@ -2,6 +2,12 @@
 
 AlternativePlayとNalulunaModifierを組み合わせた使い方に、当たり判定がおかしくなったりするのを解消する
 
+## 依存Mod
+
+NoteMode 0.2.0以降は以下のModに依存しています
+
+- SiraUtil
+
 ### BS 1.19.x　までの機能
 
 NoteMode 0.0.9までは下記内容のものが利用できます。
@@ -19,10 +25,12 @@ NoteMode 0.0.9までは下記内容のものが利用できます。
 
 ### BS 1.20.0　に追加された機能
 
-NoteMode 0.1.2以降は下記内容のものが追加されています。
+NoteMode 0.2.0以降は下記内容のものが追加されています。
 
 - All Notes BurstSliderHead: 全てのノーツをチェインノーツの頭部分のみにします
-- Add Arc: 切るノーツの次のノーツが同じ色のときにArcが追加されます
+- All Arc Mode: 基本的には全てにアークが生成されます（各モードによって生成する処理が違います）
+- Restricted Arc Mode: 制限付きのアーク生成（色が交互に発生する場合は生成しません）
+- Rainbow Color: ノーツがカラフルになります。
 
 Randomize Arrows、Restricted Randomize Arrowsの機能は、[ふぁずぱい](https://twitter.com/FaZ_Pi)さんによって作成されました。
 

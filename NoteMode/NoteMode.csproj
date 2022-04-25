@@ -142,7 +142,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioSpectrums\AudioSpectrum.cs" />
     <Compile Include="Controllers\BeatmapDataTransformController.cs" />
     <Compile Include="HarmonyPatches\BeatmapDataTransformHelper.cs" />
     <Compile Include="HarmonyPatches\BeatmapObjectManager.cs" />

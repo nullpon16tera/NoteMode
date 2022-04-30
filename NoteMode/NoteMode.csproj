@@ -73,6 +73,11 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="SongCore">
+      <HintPath>$(BeatSaberDir)\Plugins\SongCore.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -148,8 +153,8 @@
     <Compile Include="HarmonyPatches\ColorManager.cs" />
     <Compile Include="HarmonyPatches\NoteBasicCutInfoHelper.cs" />
     <Compile Include="HarmonyPatches\NoteController.cs" />
-    <Compile Include="Installer\NoteModeGameInstaller.cs" />
-    <Compile Include="Installer\NoteModeMenuInstaller.cs" />
+    <Compile Include="Installers\NoteModeGameInstaller.cs" />
+    <Compile Include="Installers\NoteModeMenuInstaller.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\NoteModeModel.cs" />
     <Compile Include="Plugin.cs" />
@@ -157,6 +162,7 @@
     <Compile Include="NoteModeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\BeatmapUtil.cs" />
+    <Compile Include="Utilities\CutDirectionUtil.cs" />
     <Compile Include="Utilities\ChainNotesUtil.cs" />
     <Compile Include="Utilities\ReflectionUtil.cs" />
     <Compile Include="Utilities\SliderUtil.cs" />

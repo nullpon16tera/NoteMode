@@ -1,8 +1,9 @@
 ﻿using NoteMode.Controllers;
+using NoteMode.Utilities;
 using SiraUtil;
 using Zenject;
 
-namespace NoteMode.Installer
+namespace NoteMode.Installers
 {
     /// <summary>
     /// Monobehaviours (scripts) are added to GameObjects.
@@ -12,6 +13,7 @@ namespace NoteMode.Installer
     {
         public override void InstallBindings()
         {
+            this.Container.BindInterfacesAndSelfTo<BeatmapUtil>().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<NoteModeController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<BeatmapDataTransformController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
         }

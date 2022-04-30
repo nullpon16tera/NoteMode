@@ -23,14 +23,14 @@ NoteMode 0.0.9までは下記内容のものが利用できます。
 - Restricted Randomize Arrows（制限付きでノーツの向きがランダムに変更されます）
 - Note Scale: ノーツサイズを変更する（当たり判定も変更されます）
 
-### BS 1.20.0　に追加された機能
+### BS 1.20.0以降に追加された機能
 
 NoteMode 0.2.0以降は下記内容のものが追加されています。
 
 - All Notes BurstSliderHead: 全てのノーツをチェインノーツの頭部分のみにします
 - All Arc Mode: 基本的には全てにアークが生成されます（各モードによって生成する処理が違います）
 - Restricted Arc Mode: 制限付きのアーク生成（色が交互に発生する場合は生成しません）
-- Rainbow Color: ノーツがカラフルになります。
+- Rainbow Color: ノーツがカラフルになります。（Noodle ExtensionsとChromaが両方使われた譜面の場合は変更しないようにしました）
 
 Randomize Arrows、Restricted Randomize Arrowsの機能は、[ふぁずぱい](https://twitter.com/FaZ_Pi)さんによって作成されました。
 

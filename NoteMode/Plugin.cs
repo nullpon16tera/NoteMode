@@ -4,7 +4,7 @@ using IPA.Config;
 using IPA.Config.Stores;
 using IPA.Loader;
 using SiraUtil.Zenject;
-using NoteMode.Installer;
+using NoteMode.Installers;
 using System.Reflection;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;

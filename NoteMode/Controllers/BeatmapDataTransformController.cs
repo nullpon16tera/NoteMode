@@ -18,24 +18,27 @@ namespace NoteMode.Controllers
     {
         private PluginConfig conf = PluginConfig.Instance;
 
-        [Inject]
-        public void Constractor(IAudioTimeSource audioSource, IReadonlyBeatmapData beatmapData, ColorScheme scheme)
-        {
-            this._source = audioSource;
-            this._beatmapData = beatmapData;
-            this._colorScheme = scheme;
-        }
-
-        private IAudioTimeSource _source;
-        private IReadonlyBeatmapData _beatmapData;
-        private ColorScheme _colorScheme;
-        private DateTime _lastSendTime;
+        
         private bool enable = false;
+        public Color[] Colors => this._rainbow;
+        public int LeftColorIndex { get; private set; }
+        public int RightColorIndex { get; private set; }
 
         private void Awake()
         {
             ColorManagerColorForTypePatch.LeftColor = this._colorScheme.saberAColor;
             ColorManagerColorForTypePatch.RightColor = this._colorScheme.saberBColor;
+
+            if (conf.oneColorRed)
+            {
+                ColorManagerColorForTypePatch.LeftColor = _colorScheme.saberAColor;
+                ColorManagerColorForTypePatch.RightColor = _colorScheme.saberAColor;
+            }
+            if (conf.oneColorBlue)
+            {
+                ColorManagerColorForTypePatch.LeftColor = _colorScheme.saberBColor;
+                ColorManagerColorForTypePatch.RightColor = _colorScheme.saberBColor;
+            }
 
             if (this._beatmapData == null)
             {
@@ -51,8 +54,6 @@ namespace NoteMode.Controllers
             {
                 return;
             }
-
-            this._lastSendTime = DateTime.Now;
 
             var beatmapObjectDataItems = this._beatmapData.allBeatmapDataItems.Where(x => x is BeatmapObjectData).Select(x => x as BeatmapObjectData).ToArray();
 
@@ -77,17 +78,17 @@ namespace NoteMode.Controllers
 
                     if (conf.reverseArrows)
                     {
-                        noteData.ChangeNoteCutDirection(BeatmapUtil.SwitchNoteCutDirection(noteData.cutDirection));
+                        noteData.ChangeNoteCutDirection(CutDirectionUtil.SwitchNoteCutDirection(noteData.cutDirection));
                     }
 
                     if (conf.randomizeArrows)
                     {
-                        noteData.ChangeNoteCutDirection(BeatmapUtil.RandomizeNoteCutDirection(noteData));
+                        noteData.ChangeNoteCutDirection(CutDirectionUtil.RandomizeNoteCutDirection(noteData));
                     }
 
                     if (conf.restrictedrandomizeArrows)
                     {
-                        noteData.ChangeNoteCutDirection(BeatmapUtil.RestrictedRandomizeNoteCutDirection(noteData));
+                        noteData.ChangeNoteCutDirection(CutDirectionUtil.RestrictedRandomizeNoteCutDirection(noteData));
                     }
 
                     if (conf.allBurstSliderHead && (noteData.gameplayType == NoteData.GameplayType.Normal))
@@ -100,7 +101,15 @@ namespace NoteMode.Controllers
 
         private void Start()
         {
+            ColorManagerColorForTypePatch.Enable = conf.rainbowColor ? !this._util.IsNoodle && !this._util.IsChroma : (conf.oneColorRed || conf.oneColorBlue);
 
+            this._rainbow = new Color[s_colorCount];
+            var tmp = 1f / s_colorCount;
+            for (var i = 0; i < s_colorCount; i++)
+            {
+                var hue = tmp * i;
+                this._rainbow[i] = Color.HSVToRGB(hue, 1f, 1f);
+            }
         }
 
         private void Update()
@@ -109,61 +118,33 @@ namespace NoteMode.Controllers
             {
                 return;
             }
-            if (this._source.songTime == 0)
-            {
-                this._lastSendTime = DateTime.Now;
-                return;
-            }
 
-            if (conf.oneColorRed)
-            {
-                ColorManagerColorForTypePatch.LeftColor = _colorScheme.saberAColor;
-                ColorManagerColorForTypePatch.RightColor = _colorScheme.saberAColor;
-            }
-            if (conf.oneColorBlue)
-            {
-                ColorManagerColorForTypePatch.LeftColor = _colorScheme.saberBColor;
-                ColorManagerColorForTypePatch.RightColor = _colorScheme.saberBColor;
-            }
 
             if (conf.rainbowColor)
             {
-                ColorManagerColorForTypePatch.LeftColor = Color.HSVToRGB(UnityEngine.Random.Range(0f, 1f), 1f, 1f);
-                ColorManagerColorForTypePatch.RightColor = Color.HSVToRGB(UnityEngine.Random.Range(0f, 1f), 1f, 1f);
+                ColorManagerColorForTypePatch.LeftColor = Colors[this.LeftColorIndex];
+                ColorManagerColorForTypePatch.RightColor = Colors[this.RightColorIndex];
             }
         }
 
-        /// <summary>
-        /// Called every frame after every other enabled script's Update().
-        /// </summary>
-        private void LateUpdate()
+        public void FixedUpdate()
         {
-
+            this.LeftColorIndex = Time.frameCount % s_colorCount;
+            this.RightColorIndex = (Time.frameCount + (s_colorCount / 2)) % s_colorCount;
         }
 
-        /// <summary>
-        /// Called when the script becomes enabled and active
-        /// </summary>
-        private void OnEnable()
+        private IReadonlyBeatmapData _beatmapData;
+        private ColorScheme _colorScheme;
+        private BeatmapUtil _util;
+        private Color[] _rainbow;
+        public const int s_colorCount = 256;
+
+        [Inject]
+        public void Constractor(IReadonlyBeatmapData beatmapData, ColorScheme scheme, BeatmapUtil util)
         {
-
-        }
-
-        /// <summary>
-        /// Called when the script becomes disabled or when it is being destroyed.
-        /// </summary>
-        private void OnDisable()
-        {
-
-        }
-
-        /// <summary>
-        /// Called when the script is being destroyed.
-        /// </summary>
-        private void OnDestroy()
-        {
-            Plugin.Log?.Debug($"{name}: OnDestroy()");
-
+            this._util = util;
+            this._beatmapData = beatmapData;
+            this._colorScheme = scheme;
         }
     }
 }

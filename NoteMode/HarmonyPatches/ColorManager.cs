@@ -6,11 +6,17 @@ using UnityEngine;
 namespace NoteMode.HarmonyPatches
 {
     [HarmonyPatch(typeof(ColorManager), nameof(ColorManager.ColorForType), new Type[] { typeof(ColorType) })]
+    [HarmonyPriority(600)]
     public class ColorManagerColorForTypePatch
     {
+        private static bool oneColor = (PluginConfig.Instance.oneColorRed || PluginConfig.Instance.oneColorBlue);
+
         public static bool Prefix(ref ColorType type, ref Color __result)
         {
-
+            if (!Enable)
+            {
+                return true;
+            }
             switch (type)
             {
                 case ColorType.ColorA:
@@ -19,10 +25,8 @@ namespace NoteMode.HarmonyPatches
                 case ColorType.ColorB:
                     __result = RightColor;
                     break;
-                case ColorType.None:
-                    break;
                 default:
-                    __result = Color.black;
+                    __result = Color.clear;
                     break;
             }
 
@@ -35,6 +39,7 @@ namespace NoteMode.HarmonyPatches
     }
 
     [HarmonyPatch(typeof(ColorManager), "ColorForSaberType")]
+    [HarmonyPriority(600)]
     static class ColorManagerColorForSaberType
     {
         static void Prefix(ref SaberType type)
@@ -52,6 +57,7 @@ namespace NoteMode.HarmonyPatches
     }
 
     [HarmonyPatch(typeof(ColorManager), "EffectsColorForSaberType")]
+    [HarmonyPriority(600)]
     static class ColorManagerEffectsColorForSaberType
     {
         static void Prefix(ref SaberType type)

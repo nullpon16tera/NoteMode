@@ -8,9 +8,6 @@ namespace NoteMode
     {
         public static NoteModeController instance { get; private set; }
 
-        public bool inGame = false;
-
-
         #region Monobehaviour Messages
         private void Awake()
         {

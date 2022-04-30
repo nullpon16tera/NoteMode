@@ -2,7 +2,7 @@
 using SiraUtil;
 using Zenject;
 
-namespace NoteMode.Installer
+namespace NoteMode.Installers
 {
     public class NoteModeMenuInstaller : MonoInstaller
     {

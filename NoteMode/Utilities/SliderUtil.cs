@@ -130,7 +130,6 @@ namespace NoteMode.Utilities
         {
             float headControllPointLength = 0.8f;
             float nextTime = noteData.time + noteData.timeToNextColorNote;
-            SliderMidAnchorMode anchor = SliderMidAnchorMode.Straight;
             NoteCutDirection cutDirection = noteData.cutDirection;
             NoteCutDirection nextCutDirection = nextNoteData.cutDirection;
 
@@ -143,15 +142,10 @@ namespace NoteMode.Utilities
                 nextTime = nextNoteData.time;
             }
 
-            if (noteData.cutDirection == nextNoteData.cutDirection)
-            {
-                anchor = SliderMidAnchorMode.CounterClockwise;
-            }
-
             if (PluginConfig.Instance.reverseArrows)
             {
-                cutDirection = BeatmapUtil.SwitchNoteCutDirection(noteData.cutDirection);
-                nextCutDirection = BeatmapUtil.SwitchNoteCutDirection(nextNoteData.cutDirection);
+                cutDirection = CutDirectionUtil.SwitchNoteCutDirection(noteData.cutDirection);
+                nextCutDirection = CutDirectionUtil.SwitchNoteCutDirection(nextNoteData.cutDirection);
             }
 
             return SliderData.CreateSliderData(
@@ -168,7 +162,7 @@ namespace NoteMode.Utilities
                 nextNoteData.noteLineLayer,
                 0.6f,
                 nextCutDirection,
-                anchor
+                SliderMidAnchorMode.Straight
             );
         }
 

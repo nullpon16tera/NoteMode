@@ -13,6 +13,7 @@
 				<modifier value='restrictedArcMode' apply-on-change='true' source='NoteMode.Resource.arcMode.png' text='Restricted Arc Mode' hover-hint='[Disable Score] Add arc for same color notes.'></modifier>
 				<modifier value='allBurstSliderHead' apply-on-change='true' source='NoteMode.Resource.allBurstSliderHead.png' text='All Notes BurstSliderHead' hover-hint='[Disable Score] Change All notes burst slider head.'></modifier>
 				<modifier value='changeChainNotes' apply-on-change='true' source='NoteMode.Resource.changeChainNotes.png' text='Change Chain Notes(Beta)' hover-hint='[Disable Score] In the middle of both sides, change to chain notes for down and up.'></modifier>
+				<modifier value='koshiNotesSetting' apply-on-change='true' source='NoteMode.Resource.Koshi.png' text='Koshi Dasumo Mode' hover-hint='[Disable Score] Move the upper notes to the middle.'></modifier>
 			</vertical>
 			<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 				<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.Resource.noNotes.png' text='Remove Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>

@@ -187,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="Resource\Koshi.png" />
     <EmbeddedResource Include="Resource\RainbowColor.png" />
     <EmbeddedResource Include="Resource\allBurstSliderHead.png" />
     <EmbeddedResource Include="Resource\arcMode.png" />

@@ -25,7 +25,8 @@ namespace NoteMode
                 PluginConfig.Instance.restrictedArcMode ||
                 PluginConfig.Instance.allBurstSliderHead ||
                 PluginConfig.Instance.changeChainNotes ||
-                PluginConfig.Instance.isNotesScale
+                PluginConfig.Instance.isNotesScale ||
+                PluginConfig.Instance.koshiNotesSetting
             )
             {
                 ScoreSubmission.DisableSubmission(Plugin.Name);

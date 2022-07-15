@@ -24,6 +24,7 @@ namespace NoteMode.HarmonyPatches
                 {
                     if (noteData != null && noteData.cutDirection != NoteCutDirection.None)
                     {
+
                         NoteData nextNoteData = SliderUtil.NextNoteData(noteData, beatmapObjectDataItems);
 
                         if ((conf.arcMode || conf.restrictedArcMode) && nextNoteData != null)

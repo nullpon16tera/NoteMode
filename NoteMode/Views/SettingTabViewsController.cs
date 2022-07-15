@@ -155,6 +155,26 @@ namespace NoteMode.Views
             }
         }
 
+        [UIValue("koshiNotesSetting")]
+        public bool koshiNotesSetting
+        {
+            get => conf.koshiNotesSetting;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.reverseArrows) conf.reverseArrows = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
+                    if (conf.changeChainNotes) conf.changeChainNotes = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                }
+                conf.koshiNotesSetting = value;
+                updateUI();
+            }
+        }
+
         [UIValue("allBurstSliderHead")]
         public bool allBurstSliderHead
         {

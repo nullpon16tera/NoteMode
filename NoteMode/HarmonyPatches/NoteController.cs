@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace NoteMode.HarmonyPatches
 {
@@ -41,7 +42,11 @@ namespace NoteMode.HarmonyPatches
 
         static void Postfix(ref NoteData noteData, Transform ____noteTransform)
         {
-            if (!PluginConfig.Instance.isNotesScale && PluginConfig.Instance.notesScale == 1f)
+            if (!PluginConfig.Instance.isNotesScale)
+            {
+                return;
+            }
+            if (PluginConfig.Instance.notesScale == 1f)
             {
                 return;
             }

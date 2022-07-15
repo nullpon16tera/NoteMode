@@ -55,13 +55,35 @@ namespace NoteMode.Controllers
                 return;
             }
 
-            var beatmapObjectDataItems = this._beatmapData.allBeatmapDataItems.Where(x => x is BeatmapObjectData).Select(x => x as BeatmapObjectData).ToArray();
+            var beatmapObjectDataItems = this._beatmapData.allBeatmapDataItems.Where(x => x is BeatmapObjectData).Select(x => x as BeatmapObjectData).ToList();
 
             foreach (BeatmapObjectData beatmapObjectData in beatmapObjectDataItems)
             {
                 var noteData = beatmapObjectData as NoteData;
                 if (noteData != null && noteData.cutDirection != NoteCutDirection.None)
                 {
+                    if (conf.koshiNotesSetting)
+                    {
+                        if (noteData.noteLineLayer == NoteLineLayer.Top)
+                        {
+                            /*var timeGroup = this._beatmapData.allBeatmapDataItems.OfType<NoteData>().GroupBy(x => x.time);
+                            foreach (var beatmapDataItem in timeGroup)
+                            {
+                                var time = beatmapDataItem.Key;
+                                foreach (var noteData2 in beatmapDataItem)
+                                {
+                                    if (noteData2.lineIndex != noteData.lineIndex) break;
+
+                                    if (noteData2.noteLineLayer == NoteLineLayer.Upper)
+                                    {
+
+                                    }
+                                }
+                            }*/
+                            ReflectionUtil.SetNonPublicProperty(noteData, "noteLineLayer", NoteLineLayer.Upper);
+                        }
+                    }
+                    
                     if (conf.noArrow)
                     {
                         noteData.SetNoteToAnyCutDirection();
@@ -134,7 +156,7 @@ namespace NoteMode.Controllers
         }
 
         private IReadonlyBeatmapData _beatmapData;
-        private ColorScheme _colorScheme;
+        public ColorScheme _colorScheme;
         private BeatmapUtil _util;
         private Color[] _rainbow;
         public const int s_colorCount = 256;

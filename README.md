@@ -35,4 +35,4 @@ NoteMode 0.2.0以降は下記内容のものが追加されています。
 
 Randomize Arrows、Restricted Randomize Arrowsの機能は、[ふぁずぱい](https://twitter.com/FaZ_Pi)さんによって作成されました。
 
-![NoteMode](https://raw.githubusercontent.com/nullpon16tera/nullpon16tera.github.io/master/NoteMode/note_mode.png "NoteMode Modifier")
+![NoteMode](https://raw.githubusercontent.com/nullpon16tera/nullpon16tera.github.io/master/NoteMode/note_mode_0.2.2.png "NoteMode Modifier")

@@ -25,13 +25,14 @@ NoteMode 0.0.9までは下記内容のものが利用できます。
 
 ### BS 1.20.0以降に追加された機能
 
-NoteMode 0.2.0以降は下記内容のものが追加されています。
-
 - All Notes BurstSliderHead: 全てのノーツをチェインノーツの頭部分のみにします
 - All Arc Mode: 基本的には全てにアークが生成されます（各モードによって生成する処理が違います）
 - Restricted Arc Mode: 制限付きのアーク生成（色が交互に発生する場合は生成しません）
 - Rainbow Color: ノーツがカラフルになります。（Noodle ExtensionsとChromaが両方使われた譜面の場合は変更しないようにしました）
-- Koshi Dasumo Mode: 腰ダスモ用に上段ノーツを中段に移動します。
+- Top to middle: 腰ダスモ用に上段ノーツを中段に移動します。
+- Top to base: 上段ノーツを下段に移動します。
+- Base to top: 下段ノーツを上段に移動します。
+- Base to middle: 下段ノーツを中断に移動します。
 
 Randomize Arrows、Restricted Randomize Arrowsの機能は、[ふぁずぱい](https://twitter.com/FaZ_Pi)さんによって作成されました。
 

@@ -155,10 +155,21 @@ namespace NoteMode.Views
             }
         }
 
-        [UIValue("koshiNotesSetting")]
-        public bool koshiNotesSetting
+        [UIValue("isNotesPosition")]
+        public bool isNotesPosition
         {
-            get => conf.koshiNotesSetting;
+            get => conf.isNotesPosition;
+            set
+            {
+                conf.isNotesPosition = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("notesTopToMiddle")]
+        public bool notesTopToMiddle
+        {
+            get => conf.notesTopToMiddle;
             set
             {
                 if (value)
@@ -169,8 +180,77 @@ namespace NoteMode.Views
                     if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
                     if (conf.changeChainNotes) conf.changeChainNotes = false;
                     if (conf.noNotesBomb) conf.noNotesBomb = false;
+
+                    if (conf.notesTopToBase) conf.notesTopToBase = false;
                 }
-                conf.koshiNotesSetting = value;
+
+                conf.notesTopToMiddle = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("notesTopToBase")]
+        public bool notesTopToBase
+        {
+            get => conf.notesTopToBase;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.reverseArrows) conf.reverseArrows = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
+                    if (conf.changeChainNotes) conf.changeChainNotes = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+
+                    if (conf.notesTopToMiddle) conf.notesTopToMiddle = false;
+                }
+                conf.notesTopToBase = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("notesBaseToTop")]
+        public bool notesBaseToTop
+        {
+            get => conf.notesBaseToTop;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.reverseArrows) conf.reverseArrows = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
+                    if (conf.changeChainNotes) conf.changeChainNotes = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+
+                    if (conf.notesBaseToMiddle) conf.notesBaseToMiddle = false;
+                }
+                conf.notesBaseToTop = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("notesBaseToMiddle")]
+        public bool notesBaseToMiddle
+        {
+            get => conf.notesBaseToMiddle;
+            set
+            {
+                if (value)
+                {
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+                    if (conf.reverseArrows) conf.reverseArrows = false;
+                    if (conf.randomizeArrows) conf.randomizeArrows = false;
+                    if (conf.restrictedrandomizeArrows) conf.restrictedrandomizeArrows = false;
+                    if (conf.changeChainNotes) conf.changeChainNotes = false;
+                    if (conf.noNotesBomb) conf.noNotesBomb = false;
+
+                    if (conf.notesBaseToTop) conf.notesBaseToTop = false;
+                }
+                conf.notesBaseToMiddle = value;
                 updateUI();
             }
         }

@@ -62,28 +62,38 @@ namespace NoteMode.Controllers
                 var noteData = beatmapObjectData as NoteData;
                 if (noteData != null && noteData.cutDirection != NoteCutDirection.None)
                 {
-                    if (conf.koshiNotesSetting)
+
+                    if (conf.isNotesPosition)
                     {
-                        if (noteData.noteLineLayer == NoteLineLayer.Top)
+                        switch (noteData.noteLineLayer)
                         {
-                            /*var timeGroup = this._beatmapData.allBeatmapDataItems.OfType<NoteData>().GroupBy(x => x.time);
-                            foreach (var beatmapDataItem in timeGroup)
-                            {
-                                var time = beatmapDataItem.Key;
-                                foreach (var noteData2 in beatmapDataItem)
+                            case NoteLineLayer.Base:
+                                if (conf.notesBaseToMiddle)
                                 {
-                                    if (noteData2.lineIndex != noteData.lineIndex) break;
-
-                                    if (noteData2.noteLineLayer == NoteLineLayer.Upper)
-                                    {
-
-                                    }
+                                    ReflectionUtil.SetNonPublicProperty(noteData, "noteLineLayer", NoteLineLayer.Upper);
                                 }
-                            }*/
-                            ReflectionUtil.SetNonPublicProperty(noteData, "noteLineLayer", NoteLineLayer.Upper);
+                                if (conf.notesBaseToTop)
+                                {
+                                    ReflectionUtil.SetNonPublicProperty(noteData, "noteLineLayer", NoteLineLayer.Top);
+                                }
+                                break;
+                            case NoteLineLayer.Upper:
+                                break;
+                            case NoteLineLayer.Top:
+                                if (conf.notesTopToMiddle)
+                                {
+                                    ReflectionUtil.SetNonPublicProperty(noteData, "noteLineLayer", NoteLineLayer.Upper);
+                                }
+                                if (conf.notesTopToBase)
+                                {
+                                    ReflectionUtil.SetNonPublicProperty(noteData, "noteLineLayer", NoteLineLayer.Base);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
-                    
+
                     if (conf.noArrow)
                     {
                         noteData.SetNoteToAnyCutDirection();
@@ -123,14 +133,18 @@ namespace NoteMode.Controllers
 
         private void Start()
         {
-            ColorManagerColorForTypePatch.Enable = conf.rainbowColor ? !this._util.IsNoodle && !this._util.IsChroma : (conf.oneColorRed || conf.oneColorBlue);
+            //ColorManagerColorForTypePatch.Enable = conf.rainbowColor ? !this._util.IsNoodle && !this._util.IsChroma : (conf.oneColorRed || conf.oneColorBlue);
+            ColorManagerColorForTypePatch.Enable = conf.rainbowColor;
 
-            this._rainbow = new Color[s_colorCount];
-            var tmp = 1f / s_colorCount;
-            for (var i = 0; i < s_colorCount; i++)
+            if (conf.rainbowColor)
             {
-                var hue = tmp * i;
-                this._rainbow[i] = Color.HSVToRGB(hue, 1f, 1f);
+                this._rainbow = new Color[s_colorCount];
+                var tmp = 1f / s_colorCount;
+                for (var i = 0; i < s_colorCount; i++)
+                {
+                    var hue = tmp * i;
+                    this._rainbow[i] = Color.HSVToRGB(hue, 1f, 1f);
+                }
             }
         }
 

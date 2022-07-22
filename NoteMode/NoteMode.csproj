@@ -187,6 +187,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="Resource\BaseToMiddle.png" />
+    <EmbeddedResource Include="Resource\BaseToUpper.png" />
+    <EmbeddedResource Include="Resource\UpperToBase.png" />
+    <EmbeddedResource Include="Resource\UpperToMiddle.png" />
     <EmbeddedResource Include="Resource\Koshi.png" />
     <EmbeddedResource Include="Resource\RainbowColor.png" />
     <EmbeddedResource Include="Resource\allBurstSliderHead.png" />

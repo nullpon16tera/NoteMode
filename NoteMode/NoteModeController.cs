@@ -26,7 +26,13 @@ namespace NoteMode
                 PluginConfig.Instance.allBurstSliderHead ||
                 PluginConfig.Instance.changeChainNotes ||
                 PluginConfig.Instance.isNotesScale ||
-                PluginConfig.Instance.koshiNotesSetting
+                (
+                    PluginConfig.Instance.isNotesPosition &&
+                    PluginConfig.Instance.notesTopToMiddle ||
+                    PluginConfig.Instance.notesTopToBase ||
+                    PluginConfig.Instance.notesBaseToTop ||
+                    PluginConfig.Instance.notesBaseToMiddle
+                )
             )
             {
                 ScoreSubmission.DisableSubmission(Plugin.Name);

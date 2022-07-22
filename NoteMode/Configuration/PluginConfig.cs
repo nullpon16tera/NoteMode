@@ -15,7 +15,11 @@ namespace NoteMode.Configuration
         public virtual bool oneColorRed { get; set; } = false;
         public virtual bool oneColorBlue { get; set; } = false;
         public virtual bool noArrow { get; set; } = false;
-        public virtual bool koshiNotesSetting { get; set; } = false;
+        public virtual bool isNotesPosition { get; set; } = false;
+        public virtual bool notesTopToMiddle { get; set; } = false;
+        public virtual bool notesTopToBase { get; set; } = false;
+        public virtual bool notesBaseToTop { get; set; } = false;
+        public virtual bool notesBaseToMiddle { get; set; } = false;
 
         public virtual bool allBurstSliderHead { get; set; } = false;
 

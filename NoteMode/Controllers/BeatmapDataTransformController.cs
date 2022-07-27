@@ -47,7 +47,8 @@ namespace NoteMode.Controllers
             this.enable = (
                 conf.noRed || conf.noBlue || conf.oneColorRed || conf.oneColorBlue || conf.noArrow || conf.noNotesBomb ||
                 conf.reverseArrows || conf.randomizeArrows || conf.restrictedrandomizeArrows ||
-                conf.arcMode || conf.allBurstSliderHead || conf.changeChainNotes || conf.rainbowColor
+                conf.arcMode || conf.allBurstSliderHead || conf.changeChainNotes || conf.rainbowColor ||
+                conf.isNotesPosition
             );
             
             if (!this.enable)
@@ -128,6 +129,8 @@ namespace NoteMode.Controllers
                         noteData.ChangeToBurstSliderHead();
                     }
                 }
+
+                
             }
         }
 

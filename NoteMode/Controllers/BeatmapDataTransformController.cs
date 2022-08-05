@@ -137,7 +137,7 @@ namespace NoteMode.Controllers
         private void Start()
         {
             //ColorManagerColorForTypePatch.Enable = conf.rainbowColor ? !this._util.IsNoodle && !this._util.IsChroma : (conf.oneColorRed || conf.oneColorBlue);
-            ColorManagerColorForTypePatch.Enable = conf.rainbowColor;
+            ColorManagerColorForTypePatch.Enable = conf.rainbowColor ? conf.rainbowColor : (conf.oneColorRed || conf.oneColorBlue);
 
             if (conf.rainbowColor)
             {

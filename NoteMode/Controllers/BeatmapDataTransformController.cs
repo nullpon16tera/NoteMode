@@ -61,9 +61,9 @@ namespace NoteMode.Controllers
             foreach (BeatmapObjectData beatmapObjectData in beatmapObjectDataItems)
             {
                 var noteData = beatmapObjectData as NoteData;
+                
                 if (noteData != null && noteData.cutDirection != NoteCutDirection.None)
                 {
-
                     if (conf.isNotesPosition)
                     {
                         switch (noteData.noteLineLayer)

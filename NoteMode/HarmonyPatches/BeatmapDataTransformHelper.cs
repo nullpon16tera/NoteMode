@@ -10,15 +10,19 @@ using UnityEngine;
 namespace NoteMode.HarmonyPatches
 {
     [HarmonyPatch(typeof(BeatmapDataTransformHelper), "CreateTransformedBeatmapData")]
+    [HarmonyPriority(600)]
     internal static class BeatmapDataTransformHelperCreateTransformedBeatmapData
     {
         private static PluginConfig conf = PluginConfig.Instance;
         private static void Prefix(ref IReadonlyBeatmapData beatmapData)
         {
             var copy = beatmapData.GetCopy();
+
+
             if (conf.arcMode || conf.restrictedArcMode || conf.changeChainNotes)
             {
                 var beatmapObjectDataItems = copy.allBeatmapDataItems.Where(x => x is NoteData).Select(x => x as NoteData).ToArray();
+
 
                 foreach (NoteData noteData in beatmapObjectDataItems)
                 {
@@ -26,6 +30,7 @@ namespace NoteMode.HarmonyPatches
                     {
 
                         NoteData nextNoteData = SliderUtil.NextNoteData(noteData, beatmapObjectDataItems);
+                        
 
                         if ((conf.arcMode || conf.restrictedArcMode) && nextNoteData != null)
                         {
@@ -53,10 +58,12 @@ namespace NoteMode.HarmonyPatches
                                 copy.AddBeatmapObjectData(burstSliderData);
                             }
                         }
+                        
                     }
                 }
 
             }
+
             beatmapData = copy;
         }
     }

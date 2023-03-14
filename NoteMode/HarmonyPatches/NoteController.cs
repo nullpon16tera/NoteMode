@@ -52,7 +52,7 @@ namespace NoteMode.HarmonyPatches
             }
 
             float getScale = PluginConfig.Instance.notesScale;
-            float x = NoteControllerInit.ScaleLineIndex(noteData, getScale);
+            /*float x = NoteControllerInit.ScaleLineIndex(noteData, getScale);
             float y = 0f;
 
             // Base Line (Bottom)
@@ -72,10 +72,10 @@ namespace NoteMode.HarmonyPatches
             if (noteData.noteLineLayer == NoteLineLayer.Top)
             {
                 y = -((1f - getScale) * getScale + ((1f - getScale) * 0.01f));
-            }
+            }*/
 
             ____noteTransform.gameObject.transform.localScale = Vector3.one * getScale;
-            ____noteTransform.gameObject.transform.localPosition = new Vector3(x, y, -(1f - getScale));
+            //____noteTransform.gameObject.transform.localPosition = new Vector3(x, y, -(1f - getScale));
         }
     }
 }

@@ -127,7 +127,6 @@ namespace NoteMode.Utilities
                             ChainNotesUtil.tailLineIndex,
                             ChainNotesUtil.tailBeforeLineLayer,
                             ChainNotesUtil.tailBeforeLineLayer,
-                            NoteCutDirection.Any,
                             tailLineCount,
                             1f
                         );

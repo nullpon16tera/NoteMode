@@ -37,14 +37,14 @@ namespace NoteMode.HarmonyPatches
                             if (conf.noArrow || conf.oneColorRed || conf.oneColorBlue)
                             {
                                 SliderData sliderDataAny = SliderUtil.CreateAnySliderData(noteData, nextNoteData, noteData.colorType);
-                                copy.AddBeatmapObjectData(sliderDataAny);
+                                copy.AddBeatmapObjectDataInOrder(sliderDataAny);
                             }
                             else
                             {
                                 if (nextNoteData.cutDirection != NoteCutDirection.Any && noteData.colorType == nextNoteData.colorType)
                                 {
                                     SliderData sliderData = SliderUtil.CreateSliderData(noteData, nextNoteData, noteData.colorType);
-                                    copy.AddBeatmapObjectData(sliderData);
+                                    copy.AddBeatmapObjectDataInOrder(sliderData);
                                 }
                             }
                         }
@@ -55,7 +55,7 @@ namespace NoteMode.HarmonyPatches
                             if (burstSliderData != null)
                             {
                                 noteData.ChangeToBurstSliderHead();
-                                copy.AddBeatmapObjectData(burstSliderData);
+                                copy.AddBeatmapObjectDataInOrder(burstSliderData);
                             }
                         }
                         

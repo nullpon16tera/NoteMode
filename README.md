@@ -2,6 +2,9 @@
 
 AlternativePlayとNalulunaModifierを組み合わせた使い方に、当たり判定がおかしくなったりするのを解消する
 
+NoteMode 0.3.0以降は、BeatSaber 1.30.2以上からになります。
+
+
 ## 依存Mod
 
 NoteMode 0.2.0以降は以下のModに依存しています

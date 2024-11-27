@@ -149,20 +149,23 @@ namespace NoteMode.Utilities
             }
 
             return SliderData.CreateSliderData(
-                colorType,
-                noteData.time,
-                noteData.lineIndex,
-                noteData.noteLineLayer,
-                noteData.beforeJumpNoteLineLayer,
-                headControllPointLength,
-                cutDirection,
-                nextTime,
-                nextNoteData.lineIndex,
-                nextNoteData.noteLineLayer,
-                nextNoteData.noteLineLayer,
-                0.6f,
-                nextCutDirection,
-                SliderMidAnchorMode.Straight
+                colorType, // ColorType colorType
+                noteData.time, // float headTime
+                noteData.beat, // float headBeat
+                noteData.rotation, // int headRotation
+                noteData.lineIndex, // int headLineIndex
+                noteData.noteLineLayer, // NoteLineLayer headNoteLineLayer
+                noteData.beforeJumpNoteLineLayer, // NoteLineLayer headBeforeJumpNoteLineLayer
+                headControllPointLength, // float headControlPointLengthMultiplier
+                cutDirection, // NoteCutDirection headCutDirection
+                nextTime, // float tailTime
+                nextNoteData.rotation, // int tailRotation
+                nextNoteData.lineIndex, // int tailLineIndex
+                nextNoteData.noteLineLayer, // NoteLineLayer tailNoteLineLayer
+                nextNoteData.noteLineLayer, // NoteLineLayer tailBeforeJumpNoteLineLayer
+                0.6f, // float tailControlPointLengthMultiplier
+                nextCutDirection, // NoteCutDirection tailCutDirection
+                SliderMidAnchorMode.Straight // SliderMidAnchorMode midAnchorMode
             );
         }
 
@@ -176,12 +179,15 @@ namespace NoteMode.Utilities
             return SliderData.CreateSliderData(
                 colorType,
                 noteData.time,
+                noteData.beat,
+                noteData.rotation,
                 noteData.lineIndex,
                 noteData.noteLineLayer,
                 noteData.beforeJumpNoteLineLayer,
                 0.6f,
                 NoteCutDirection.Any,
                 nextTime,
+                nextNoteData.rotation,
                 nextNoteData.lineIndex,
                 nextNoteData.noteLineLayer,
                 nextNoteData.noteLineLayer,

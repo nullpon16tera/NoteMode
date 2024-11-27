@@ -403,10 +403,10 @@ namespace NoteMode.Views
 
         protected override void OnDestroy()
         {
-            GameplaySetup.instance.RemoveTab("NoteMode");
+            GameplaySetup.Instance.RemoveTab("NoteMode");
             base.OnDestroy();
         }
 
-        public void Initialize() => GameplaySetup.instance.AddTab("NoteMode", this.ResourceName, this);
+        public void Initialize() => GameplaySetup.Instance.AddTab("NoteMode", this.ResourceName, this);
     }
 }

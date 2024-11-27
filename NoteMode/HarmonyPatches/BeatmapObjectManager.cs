@@ -47,7 +47,7 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessSliderData")]
     public class BasicBeatmapOjbectManagerProcessSliderData
     {
-        static bool Prefix(ref SliderData sliderData, ref BeatmapObjectSpawnMovementData.SliderSpawnData sliderSpawnData, float rotation)
+        static bool Prefix(ref SliderData sliderData, ref BeatmapObjectSpawnMovementData.SliderSpawnData sliderSpawnData)
         {
 
             if (sliderData.sliderType == SliderData.Type.Burst)

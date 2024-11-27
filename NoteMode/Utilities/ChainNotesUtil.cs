@@ -14,6 +14,7 @@ namespace NoteMode.Utilities
 	public class ChainNotesUtil
     {
         internal static NoteLineLayer tailBeforeLineLayer { get; private set; }
+        internal static int tailRotation { get; private set; } = 1;
         internal static int tailLineIndex { get; private set; } = -1;
         internal static int tailLineCount { get; private set; } = 5;
         internal static bool isTailBeforeLineLayer { get; private set; } = false;
@@ -119,15 +120,18 @@ namespace NoteMode.Utilities
                         return SliderData.CreateBurstSliderData(
                             noteData.colorType,
                             noteData.time,
+                            noteData.beat,
+                            noteData.rotation,
                             noteData.lineIndex,
                             noteData.noteLineLayer,
                             noteData.beforeJumpNoteLineLayer,
                             noteData.cutDirection,
                             noteData.time + tailtime,
+                            ChainNotesUtil.tailRotation,
                             ChainNotesUtil.tailLineIndex,
                             ChainNotesUtil.tailBeforeLineLayer,
                             ChainNotesUtil.tailBeforeLineLayer,
-                            tailLineCount,
+                            ChainNotesUtil.tailLineCount,
                             1f
                         );
                     }

@@ -20,6 +20,9 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPriority(int.MaxValue)]
     internal static class NoteCutterLegacyBombBladeCollision
     {
+        /// <summary>ボム用 Overlap のブレード点を水平後方へずらす距離（m）。固定値。</summary>
+        private const float LegacyBombBladeSweepBackMeters = 2f;
+
         private static readonly FieldInfo CollidersField = AccessTools.Field(typeof(NoteCutter), "_colliders");
         private static readonly FieldInfo SortParamsField = AccessTools.Field(typeof(NoteCutter), "_cuttableBySaberSortParams");
         private static readonly FieldInfo ComparerField = AccessTools.Field(typeof(NoteCutter), "_comparer");
@@ -412,7 +415,7 @@ namespace NoteMode.HarmonyPatches
         /// <summary>HMD の水平前方の逆。Camera.main が無いときはタグ付きカメラ・全カメラ列挙、最後にセイバー親の forward で代用。</summary>
         private static Vector3 HorizontalBackwardFromPlayer(Saber saber)
         {
-            float meters = PluginConfig.Instance != null ? PluginConfig.Instance.legacyBombBladeSweepBackMeters : 0.5f;
+            float meters = LegacyBombBladeSweepBackMeters;
             if (meters <= 0f)
             {
                 return Vector3.zero;

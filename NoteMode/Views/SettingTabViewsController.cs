@@ -412,17 +412,6 @@ namespace NoteMode.Views
             }
         }
 
-        [UIValue("legacyBombBladeSweepBackMeters")]
-        public float legacyBombBladeSweepBackMeters
-        {
-            get => conf.legacyBombBladeSweepBackMeters;
-            set
-            {
-                conf.legacyBombBladeSweepBackMeters = value;
-                updateUI();
-            }
-        }
-
         protected override void OnDestroy()
         {
             GameplaySetup.Instance.RemoveTab("NoteMode");

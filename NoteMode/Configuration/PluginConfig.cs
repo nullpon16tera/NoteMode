@@ -28,11 +28,8 @@ namespace NoteMode.Configuration
 
         public virtual bool changeChainNotes { get; set; } = false;
         public virtual bool noNotesBomb { get; set; } = false;
-        /// <summary>ボムはレガシー寄りの Overlap を優先、ノーツはバニラの Overlap のみ（同じ NoteCutter.Cut を置き換え）。半ジャンプでの canBeCut 無効化もスキップする。</summary>
+        /// <summary>ボムはレガシー寄りの Overlap を優先、ノーツはバニラの Overlap のみ（同じ NoteCutter.Cut を置き換え）。半ジャンプでの canBeCut 無効化もスキップする。オフセット距離はコード内で固定（2m）。</summary>
         public virtual bool legacyBombBladeHitbox { get; set; } = false;
-
-        /// <summary>legacyBombBladeHitbox 時、ボム用 Overlap のブレード点を水平後方へずらす距離（m）。センチ級だとプレイ空間のスケールではほぼ無意味になりがち。</summary>
-        public virtual float legacyBombBladeSweepBackMeters { get; set; } = 0.5f;
 
         public virtual bool reverseArrows { get; set; } = false;
         public virtual bool randomizeArrows { get; set; } = false;

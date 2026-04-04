@@ -56,21 +56,18 @@
 
 		<tab tags='notemode-tab' tab-name='Notes Setting'>
 			<vertical>
-				<horizontal pad-top='4'>
-					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='70'>
+				<horizontal pad-top='4' child-expand-width='true'>
+					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
 						<bool-setting value='isNotesScale' apply-on-change='true' text='Notes Scale Enable' hover-hint='Enable notes scale change'></bool-setting>
-						<horizontal>
-							<horizontal pad-right='4'>
-								<slider-setting value='notesScale' apply-on-change='true' text='Scale' hover-hint='The default value is 1.00' min='0.5' max='1' increment='0.05'></slider-setting>
-							</horizontal>
-							<button text='Scale Reset' pref-width='21' on-click='size_reset_click'></button>
+						<horizontal spacing='4' child-expand-width='true'>
+							<slider-setting value='notesScale' apply-on-change='true' text='Scale' hover-hint='The default value is 1.00' min='0.5' max='1' increment='0.05'></slider-setting>
+							<button text='Scale Reset' pref-width='28' on-click='size_reset_click'></button>
 						</horizontal>
 					</vertical>
 				</horizontal>
 				<horizontal pad-top='6'>
 					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
 						<bool-setting value='legacyBombBladeHitbox' apply-on-change='true' text='Old Bomb Cut' hover-hint='旧ボム仕様に変更する'></bool-setting>
-						<slider-setting value='legacyBombBladeSweepBackMeters' apply-on-change='true' text='Old Bomb Cut Offset(m)' hover-hint='ボムの判定までのオフセット' min='0' max='2' increment='0.05'></slider-setting>
 					</vertical>
 				</horizontal>
 			</vertical>

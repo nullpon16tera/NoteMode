@@ -20,7 +20,7 @@ namespace NoteMode.Utilities
         {
             if (PluginManager.EnabledPlugins.Any(x => x.Name == "NoodleExtensions"))
             {
-                var isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(gameplayCoreSceneSetupData.beatmapLevel, gameplayCoreSceneSetupData.beatmapKey)?
+                var isIsNoodleMap = SongCore.Collections.GetCustomLevelSongDifficultyData(gameplayCoreSceneSetupData.beatmapKey)?
                     .additionalDifficultyData?
                     ._requirements?.Any(x => x == "Noodle Extensions") == true;
                 return isIsNoodleMap;
@@ -35,12 +35,9 @@ namespace NoteMode.Utilities
         {
             if (PluginManager.EnabledPlugins.Any(x => x.Name == "Chroma"))
             {
-                var isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(gameplayCoreSceneSetupData.beatmapLevel, gameplayCoreSceneSetupData.beatmapKey)?
-                    .additionalDifficultyData?
-                    ._requirements?.Any(x => x == "Chroma") == true;
-                isIsNoodleMap = isIsNoodleMap || SongCore.Collections.RetrieveDifficultyData(gameplayCoreSceneSetupData.beatmapLevel, gameplayCoreSceneSetupData.beatmapKey)?
-                    .additionalDifficultyData?
-                    ._suggestions?.Any(x => x == "Chroma") == true;
+                var diffData = SongCore.Collections.GetCustomLevelSongDifficultyData(gameplayCoreSceneSetupData.beatmapKey);
+                var isIsNoodleMap = diffData?.additionalDifficultyData?._requirements?.Any(x => x == "Chroma") == true;
+                isIsNoodleMap = isIsNoodleMap || diffData?.additionalDifficultyData?._suggestions?.Any(x => x == "Chroma") == true;
                 return isIsNoodleMap;
             }
             else

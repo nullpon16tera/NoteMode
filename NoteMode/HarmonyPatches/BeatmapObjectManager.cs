@@ -32,7 +32,7 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessObstacleData")]
     public class BasicBeatmapOjbectManagerProcessObstacleData
     {
-        static void Prefix(ref ObstacleData obstacleData, ref BeatmapObjectSpawnMovementData.ObstacleSpawnData obstacleSpawnData)
+        static void Prefix(ref ObstacleData obstacleData, ref ObstacleSpawnData obstacleSpawnData)
         {
             if (PluginConfig.Instance.noNotesBomb)
             {
@@ -47,7 +47,7 @@ namespace NoteMode.HarmonyPatches
     [HarmonyPatch(typeof(BasicBeatmapObjectManager), "ProcessSliderData")]
     public class BasicBeatmapOjbectManagerProcessSliderData
     {
-        static bool Prefix(ref SliderData sliderData, ref BeatmapObjectSpawnMovementData.SliderSpawnData sliderSpawnData)
+        static bool Prefix(ref SliderData sliderData, ref SliderSpawnData sliderSpawnData)
         {
 
             if (sliderData.sliderType == SliderData.Type.Burst)

@@ -67,6 +67,12 @@
 						</horizontal>
 					</vertical>
 				</horizontal>
+				<horizontal pad-top='6'>
+					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
+						<bool-setting value='legacyBombBladeHitbox' apply-on-change='true' text='Old Bomb Cut' hover-hint='旧ボム仕様に変更する'></bool-setting>
+						<slider-setting value='legacyBombBladeSweepBackMeters' apply-on-change='true' text='Old Bomb Cut Offset(m)' hover-hint='ボムの判定までのオフセット' min='0' max='2' increment='0.05'></slider-setting>
+					</vertical>
+				</horizontal>
 			</vertical>
 		</tab>
 	</vertical>

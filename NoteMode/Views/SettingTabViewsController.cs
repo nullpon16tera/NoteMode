@@ -401,6 +401,28 @@ namespace NoteMode.Views
             }
         }
 
+        [UIValue("legacyBombBladeHitbox")]
+        public bool legacyBombBladeHitbox
+        {
+            get => conf.legacyBombBladeHitbox;
+            set
+            {
+                conf.legacyBombBladeHitbox = value;
+                updateUI();
+            }
+        }
+
+        [UIValue("legacyBombBladeSweepBackMeters")]
+        public float legacyBombBladeSweepBackMeters
+        {
+            get => conf.legacyBombBladeSweepBackMeters;
+            set
+            {
+                conf.legacyBombBladeSweepBackMeters = value;
+                updateUI();
+            }
+        }
+
         protected override void OnDestroy()
         {
             GameplaySetup.Instance.RemoveTab("NoteMode");

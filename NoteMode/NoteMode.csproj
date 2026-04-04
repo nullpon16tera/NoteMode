@@ -180,6 +180,8 @@
     <Compile Include="HarmonyPatches\ColorManager.cs" />
     <Compile Include="HarmonyPatches\NoteBasicCutInfoHelper.cs" />
     <Compile Include="HarmonyPatches\NoteController.cs" />
+    <Compile Include="HarmonyPatches\NoteCutterLegacyBombBladeCollision.cs" />
+    <Compile Include="HarmonyPatches\BombNoteControllerLegacyHalfJumpPatch.cs" />
     <Compile Include="Installers\NoteModeGameInstaller.cs" />
     <Compile Include="Installers\NoteModeMenuInstaller.cs" />
     <Compile Include="Logger.cs" />

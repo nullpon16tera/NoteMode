@@ -412,6 +412,17 @@ namespace NoteMode.Views
             }
         }
 
+        [UIValue("disableScoreSubmission")]
+        public bool disableScoreSubmission
+        {
+            get => conf.disableScoreSubmission;
+            set
+            {
+                conf.disableScoreSubmission = value;
+                updateUI();
+            }
+        }
+
         protected override void OnDestroy()
         {
             GameplaySetup.Instance.RemoveTab("NoteMode");

@@ -27,7 +27,8 @@ namespace NoteMode
                 PluginConfig.Instance.changeChainNotes ||
                 PluginConfig.Instance.isNotesScale ||
                 PluginConfig.Instance.isNotesPosition ||
-                PluginConfig.Instance.legacyBombBladeHitbox
+                PluginConfig.Instance.legacyBombBladeHitbox ||
+                PluginConfig.Instance.disableScoreSubmission
             )
             {
                 ScoreSubmission.DisableSubmission(Plugin.Name);

@@ -37,6 +37,7 @@ namespace NoteMode.Configuration
         public virtual bool rainbowColor { get; set; } = false;
         public virtual float notesScale { get; set; } = 1f;
         public virtual bool isNotesScale { get; set; } = false;
+        public virtual bool disableScoreSubmission { get; set; } = false;
 
         public event Action<PluginConfig> ConfigChangedEvent;
 

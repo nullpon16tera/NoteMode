@@ -18,6 +18,7 @@
 						<modifier value='restrictedArcMode' apply-on-change='true' source='NoteMode.Resource.arcMode.png' text='Restricted Arc Mode' hover-hint='[Disable Score] Add arc for same color notes.'></modifier>
 						<modifier value='allBurstSliderHead' apply-on-change='true' source='NoteMode.Resource.allBurstSliderHead.png' text='All Notes BurstSliderHead' hover-hint='[Disable Score] Change All notes burst slider head.'></modifier>
 						<modifier value='changeChainNotes' apply-on-change='true' source='NoteMode.Resource.changeChainNotes.png' text='Change Chain Notes(Beta)' hover-hint='[Disable Score] In the middle of both sides, change to chain notes for down and up.'></modifier>
+						<modifier value='disableScoreSubmission' apply-on-change='true' source='NoteMode.Resource.DisableScoreSubmission.png' text='Disable Score submission' hover-hint='[Disable Score] Disable Score submission.'></modifier>
 					</vertical>
 					<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 						<modifier value='noNotesBomb' apply-on-change='true' source='NoteMode.Resource.noNotes.png' text='Remove Notes Bomb' hover-hint='[Disable Score] Remove all notes and bomb.'></modifier>
@@ -31,46 +32,50 @@
 		</tab>
 
 		<tab tags='notemode-tab' tab-name='Notes Modifier 2'>
-			<vertical pad-top='2'>
-				<horizontal>
-					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='100'>
-						<bool-setting value='isNotesPosition' apply-on-change='true' text='Notes Position Enable' hover-hint='Enable notes position change'></bool-setting>
-					</vertical>
-				</horizontal>
-			</vertical>
-			<vertical pad-top='10'>
-				<horizontal child-expand-width='false' spacing='2'>
-					<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
-						<modifier value='notesTopToMiddle' apply-on-change='true' source='NoteMode.Resource.UpperToMiddle.png' text='Top to middle' hover-hint='[Disable Score] Move the top notes to the middle.'></modifier>
-						<modifier value='notesTopToBase' apply-on-change='true' source='NoteMode.Resource.UpperToBase.png' text='Top to base' hover-hint='[Disable Score] Move the top notes to the base.'></modifier>
-						<modifier value='notesBaseToTop' apply-on-change='true' source='NoteMode.Resource.BaseToUpper.png' text='Base to top' hover-hint='[Disable Score] Move the base notes to the top.'></modifier>
-						<modifier value='notesBaseToMiddle' apply-on-change='true' source='NoteMode.Resource.BaseToMiddle.png' text='Base to middle' hover-hint='[Disable Score] Move the base notes to the middle.'></modifier>
-					</vertical>
-					<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
-					</vertical>
-					<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
-					</vertical>
-				</horizontal>
-			</vertical>
+			<scrollable-settings-container>
+				<vertical pad-top='2'>
+					<horizontal>
+						<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='100'>
+							<bool-setting value='isNotesPosition' apply-on-change='true' text='Notes Position Enable' hover-hint='Enable notes position change'></bool-setting>
+						</vertical>
+					</horizontal>
+				</vertical>
+				<vertical pad-top='10'>
+					<horizontal child-expand-width='false' spacing='2'>
+						<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
+							<modifier value='notesTopToMiddle' apply-on-change='true' source='NoteMode.Resource.UpperToMiddle.png' text='Top to middle' hover-hint='[Disable Score] Move the top notes to the middle.'></modifier>
+							<modifier value='notesTopToBase' apply-on-change='true' source='NoteMode.Resource.UpperToBase.png' text='Top to base' hover-hint='[Disable Score] Move the top notes to the base.'></modifier>
+							<modifier value='notesBaseToTop' apply-on-change='true' source='NoteMode.Resource.BaseToUpper.png' text='Base to top' hover-hint='[Disable Score] Move the base notes to the top.'></modifier>
+							<modifier value='notesBaseToMiddle' apply-on-change='true' source='NoteMode.Resource.BaseToMiddle.png' text='Base to middle' hover-hint='[Disable Score] Move the base notes to the middle.'></modifier>
+						</vertical>
+						<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
+						</vertical>
+						<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
+						</vertical>
+					</horizontal>
+				</vertical>
+			</scrollable-settings-container>
 		</tab>
 
 		<tab tags='notemode-tab' tab-name='Notes Setting'>
-			<vertical>
-				<horizontal pad-top='4' child-expand-width='true'>
-					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
-						<bool-setting value='isNotesScale' apply-on-change='true' text='Notes Scale Enable' hover-hint='Enable notes scale change'></bool-setting>
-						<horizontal spacing='4' child-expand-width='true'>
-							<slider-setting value='notesScale' apply-on-change='true' text='Scale' hover-hint='The default value is 1.00' min='0.5' max='1' increment='0.05'></slider-setting>
-							<button text='Scale Reset' pref-width='28' on-click='size_reset_click'></button>
-						</horizontal>
-					</vertical>
-				</horizontal>
-				<horizontal pad-top='6'>
-					<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
-						<bool-setting value='legacyBombBladeHitbox' apply-on-change='true' text='Old Bomb Cut' hover-hint='旧ボム仕様に変更する'></bool-setting>
-					</vertical>
-				</horizontal>
-			</vertical>
+			<scrollable-settings-container>
+				<vertical>
+					<horizontal pad-top='4' child-expand-width='true'>
+						<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
+							<bool-setting value='isNotesScale' apply-on-change='true' text='Notes Scale Enable' hover-hint='Enable notes scale change'></bool-setting>
+							<horizontal spacing='4' child-expand-width='true'>
+								<slider-setting value='notesScale' apply-on-change='true' text='Scale' hover-hint='The default value is 1.00' min='0.5' max='1' increment='0.05'></slider-setting>
+								<button text='Scale Reset' pref-width='28' on-click='size_reset_click'></button>
+							</horizontal>
+						</vertical>
+					</horizontal>
+					<horizontal pad-top='6'>
+						<vertical child-control-height='false' child-expand-height='false' vertical-fix='PrefferedSize' pref-width='90'>
+							<bool-setting value='legacyBombBladeHitbox' apply-on-change='true' text='Old Bomb Cut' hover-hint='旧ボム仕様に変更する'></bool-setting>
+						</vertical>
+					</horizontal>
+				</vertical>
+			</scrollable-settings-container>
 		</tab>
 	</vertical>
 </bg>

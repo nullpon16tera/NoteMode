@@ -218,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NoteMode.csproj.user" />
+    <EmbeddedResource Include="Resource\DisableScoreSubmission.png" />
     <EmbeddedResource Include="Resource\BaseToMiddle.png" />
     <EmbeddedResource Include="Resource\BaseToUpper.png" />
     <EmbeddedResource Include="Resource\UpperToBase.png" />

@@ -3,7 +3,7 @@
     "id": "NoteMode",
     "name": "NoteMode",
     "author": "nullponvr",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "description": "NoteMode Modifiers",
     "gameVersion": "1.40.4",
     "dependsOn": {

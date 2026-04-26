@@ -10,11 +10,6 @@
 					<modifier value='noBlue' apply-on-change='true' source='NoteMode.Resource.noBlue.png' text='Remove Blue' hover-hint='[Disable Score] Remove all blue notes. Hide a right saber.'></modifier>
 					<modifier value='oneColorRed' apply-on-change='true' source='NoteMode.Resource.OneColorRed.png' text='One Color Red' hover-hint='[Disable Score] Change All blue notes to red.'></modifier>
 					<modifier value='oneColorBlue' apply-on-change='true' source='NoteMode.Resource.OneColorBlue.png' text='One Color Blue' hover-hint='[Disable Score] Change All red notes to blue.'></modifier>
-					<modifier value='noArrow' apply-on-change='true' source='NoteMode.Resource.NoArrow.png' text='No Arrows' hover-hint='[Disable Score] Change All notes no arrow.'></modifier>
-					<modifier value='noRed' apply-on-change='true' source='NoteMode.Resource.noRed.png' text='Remove Red' hover-hint='[Disable Score] Remove all red notes. Hide a left saber.'></modifier>
-					<modifier value='noBlue' apply-on-change='true' source='NoteMode.Resource.noBlue.png' text='Remove Blue' hover-hint='[Disable Score] Remove all blue notes. Hide a right saber.'></modifier>
-					<modifier value='oneColorRed' apply-on-change='true' source='NoteMode.Resource.OneColorRed.png' text='One Color Red' hover-hint='[Disable Score] Change All blue notes to red.'></modifier>
-					<modifier value='oneColorBlue' apply-on-change='true' source='NoteMode.Resource.OneColorBlue.png' text='One Color Blue' hover-hint='[Disable Score] Change All red notes to blue.'></modifier>
 				</vertical>
 				<vertical child-control-height='false' child-expand-height='false' child-control-width='false' child-expand-width='false'>
 					<modifier value='arcMode' apply-on-change='true' source='NoteMode.Resource.arcMode.png' text='All Arc Mode' hover-hint='[Disable Score] Add arc for all notes.'></modifier>
